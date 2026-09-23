@@ -21,6 +21,21 @@ The site has desktop/laptop/parts filters, search, delivered-price breakdowns, c
 
 > Shipping is the amount shown by the current marketplace result. Re-check delivery to postcode **2830** at checkout before buying.
 
+## Dubbo refurbished laptop resale research
+
+The website now also includes a current viability assessment for **buying cheap laptops, refurbishing/upgrading them, and reselling them locally in Dubbo**.
+
+Key findings:
+- There appears to be a genuine local refurbished-computer category.
+- The strongest resale lane is likely **$150–$250 business-class laptops**, not very old low-end machines.
+- Prefer **Windows 11-supported hardware**, normally Intel 8th gen or newer or comparable supported Ryzen.
+- For stock bought specifically to flip, aim for roughly **$80–$100 visible gross margin** after known parts, delivery and repair costs.
+- NSW second-hand dealer rules are a significant business consideration: electronic goods are prescribed goods, the 2026–27 new 1-year licence fee is **$692**, and current rules generally include transaction records, police reporting and a 14-day hold before goods are altered or resold.
+- The best next step is a controlled local test listing before buying stock in volume.
+
+Full research:
+- [Dubbo Refurbished Laptop Market — Viability Research](docs/DUBBO-REFURB-MARKET.md)
+
 ## Core rules
 
 - Hard budgets are **all-in**: item + postage + mandatory fees + essential missing parts.
@@ -45,6 +60,7 @@ The site has desktop/laptop/parts filters, search, delivered-price breakdowns, c
 
 - [Deep Research Prompt](docs/DEEP-RESEARCH-PROMPT.md)
 - [Live Website Specification](docs/WEBSITE-SPEC.md)
+- [Dubbo Refurbished Laptop Market](docs/DUBBO-REFURB-MARKET.md)
 
 ## Site publishing
 
@@ -61,6 +77,7 @@ https://joshualparris.github.io/Cheappcslaptops/
 - verified postcode-specific shipping where the source API supports it
 - more retailers and local/manual marketplace imports
 - deterministic parts compatibility and a real sub-$100 build combiner
+- track Dubbo refurb listing views, enquiries, offers and time-to-sale
 
 ## Status
 
