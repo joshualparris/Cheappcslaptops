@@ -23,8 +23,8 @@
       "requiredPartsAud": 0,
       "allInAud": 99,
       "shippingConfidence": "advertised",
-      "availabilityStatus": "active",
-      "availabilityConfidence": "observed-listing",
+      "availabilityStatus": "stale",
+      "availabilityConfidence": "unknown",
       "firstSeenAt": "2026-09-23",
       "lastCheckedAt": "2026-09-23",
       "award": "Best ready-to-use",
@@ -37,7 +37,7 @@
         "osInstalled": "Windows 11 Pro",
         "osSupport": "unsupported-unverified"
       },
-      "evidenceNote": "Exact eBay listing. Free delivery was advertised, but checkout to postcode 2830 was not transactionally verified.",
+      "evidenceNote": "Direct eBay item URL is retained for provenance, but it could not be independently confirmed as a current $99 active listing on 23 September 2026. Current public eBay results for comparable HP ProDesk 600 G1 systems are substantially higher, so this record has been removed from actionable deals pending re-verification.",
       "note": "The SSD makes this the strongest no-fuss complete desktop in the research snapshot.",
       "risks": [
         "Weak integrated graphics",
@@ -102,7 +102,7 @@
       "allInAud": 68,
       "shippingConfidence": "advertised",
       "availabilityStatus": "active",
-      "availabilityConfidence": "observed-listing",
+      "availabilityConfidence": "verified",
       "firstSeenAt": "2026-09-23",
       "lastCheckedAt": "2026-09-23",
       "award": "Cheapest useful box",
@@ -115,7 +115,7 @@
         "osInstalled": "None",
         "osSupport": "not-assessed"
       },
-      "evidenceNote": "Exact eBay listing. $10 delivery was advertised; postcode-2830 checkout was not transactionally verified.",
+      "evidenceNote": "Direct eBay item page independently re-opened on 23 September 2026. It showed AU $58, more than 10 available, 16 sold, and AU $10 delivery. The page's displayed delivery destination was not postcode 2830, so shipping remains 'advertised' rather than postcode-verified.",
       "note": "Useful as a tiny Linux/basic desktop or service box, not a gaming machine.",
       "risks": [
         "Only 32GB storage",
@@ -180,8 +180,8 @@
       "requiredPartsAud": 0,
       "allInAud": 99,
       "shippingConfidence": "advertised",
-      "availabilityStatus": "unknown",
-      "availabilityConfidence": "search-result",
+      "availabilityStatus": "gone",
+      "availabilityConfidence": "verified",
       "firstSeenAt": "2026-09-23",
       "lastCheckedAt": "2026-09-23",
       "award": "Laptop under $100",
@@ -194,7 +194,7 @@
         "osInstalled": "ChromeOS",
         "osSupport": "not-assessed"
       },
-      "evidenceNote": "Search-result fallback. Free delivery was shown in the surfaced result; postcode-2830 checkout was not verified.",
+      "evidenceNote": "Search-only research lead. Re-checked via the saved eBay search on 23 September 2026; eBay returned 'No exact matches found' / 0 results. This is not a current deal.",
       "note": "A complete portable option at the full budget cap, but much weaker than the desktop options.",
       "risks": [
         "Search URL may surface a different item later",
@@ -1185,8 +1185,8 @@
       "requiredPartsAud": 0,
       "allInAud": 89,
       "shippingConfidence": "advertised",
-      "availabilityStatus": "active",
-      "availabilityConfidence": "observed-listing",
+      "availabilityStatus": "stale",
+      "availabilityConfidence": "unknown",
       "firstSeenAt": "2026-09-23",
       "lastCheckedAt": "2026-09-23",
       "award": "Strong sub-$100 business laptop",
@@ -1199,7 +1199,7 @@
         "osInstalled": "Windows 11",
         "osSupport": "unsupported-unverified"
       },
-      "evidenceNote": "Exact eBay item 178408823215. User-supplied current listing screenshots on 23 Sep 2026 show AU $89.00, free postage, Used condition, seller albitcomputers (99.4% positive), and a Buy another button indicating stock was still offered. Title states i3-6100U, 4GB RAM, 128GB SSD, webcam, Wi-Fi, Bluetooth, HDMI and Windows 11.",
+      "evidenceNote": "Direct eBay item URL is retained for provenance, but the $89 listing could not be independently confirmed as currently active on 23 September 2026. Current public eBay results show comparable HP ProBook 11 G2 i3-6100U systems around $169, so this record has been removed from actionable deals pending re-verification.",
       "note": "A much stronger under-$100 Windows option than most Celeron/eMMC laptops in the sweep: 6th-gen Core i3 plus a real 128GB SSD, with RAM upgrade potential.",
       "risks": [
         "Only 4GB RAM as listed",
