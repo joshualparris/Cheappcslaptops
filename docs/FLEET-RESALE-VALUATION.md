@@ -104,3 +104,31 @@ The biggest-value systems deserve individual listings. The weakest older machine
 The website-readable source for these figures is:
 
 - [fleet-valuations-2026-09-23.json](./data/fleet-valuations-2026-09-23.json)
+
+
+## Current market evidence anchors
+
+These links are **pricing anchors, not guarantees of achieved sale price**. Some are completed/ended examples and some are current asking prices. Dealer/refurbisher pricing can also be higher than a private local sale.
+
+- **HP ProBook x360 435 G8:** exact Ryzen 5 5600U / 16 GB / 256 GB used example at A$289, plus another used/refurbished example at A$385. This supports keeping A$350 as an upper target only after the known cooling issue is proven fixed.  
+  - https://www.ebay.com.au/itm/285880946500
+  - https://www.ebay.com.au/itm/197062184475
+- **HP ProBook 11 EE G2:** exact i3-6100U / 8 GB / 128 GB examples around A$80.10 with substantial sales history and A$115.58 on another listing.  
+  - https://www.ebay.com.au/itm/256629237200
+  - https://www.ebay.com.au/itm/398093417023
+- **MacBook Air Early 2015:** an 8 GB / 128 GB refurbished example sold at A$229, with cheaper current pre-owned examples also visible.  
+  - https://www.ebay.com.au/itm/178232210431
+  - https://www.ebay.com.au/shop/2015-macbook-air?_nkw=2015+macbook+air
+- **2017 27-inch Retina 5K iMac:** a close i5 / 8 GB / 1 TB / Radeon Pro 570 example is listed at A$450; a 24 GB example at A$550.  
+  - https://www.gumtree.com.au/web/listing/desktops/1344609352
+  - https://www.gumtree.com.au/web/listing/desktops/1344709690
+- **JParrisDesktop:** comparable i5-9400F / GTX 1660 Super / 16 GB systems are listed around A$499–A$599. Your system has a normal GTX 1660 rather than Super, so its A$500–A$550 figure remains an upper-end target.  
+  - https://www.gumtree.com.au/web/listing/desktops/1344573888
+  - https://www.gumtree.com.au/web/listing/desktops/1344486203
+- **Crosshair V Formula-Z desktop:** a bare Formula-Z board without I/O shield sold around A$140 equivalent, while tested-board asks can be much higher. That unusual board value is the main reason a part-out can beat the complete-system figure.  
+  - https://www.ebay.com.au/itm/287294327709
+  - https://www.ebay.com.au/str/yukimi
+- **24-inch 2009 iMac:** an exact 2.66 GHz Core 2 Duo / 4 GB / 640 GB Australian example is listed at A$149.  
+  - https://www.ebay.com.au/itm/295549295876
+
+The weaker/older laptops without a close current comparable remain **market estimates**, deliberately capped by the availability of much newer ex-business laptops around the A$80–A$180 range.
