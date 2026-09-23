@@ -128,7 +128,9 @@ function normalise(listing) {
     hardware: listing.hardware || {},
     osInstalled: listing.hardware?.osInstalled || "Not stated",
     ramGb: Number.isFinite(listing.hardware?.ramGb) ? listing.hardware.ramGb : null,
-    storage: listing.hardware?.storage || ""
+    storage: listing.hardware?.storage || "",
+    marketComparables: listing.marketComparables || [],
+    comparisonNote: listing.comparisonNote || ""
   };
 }
 
@@ -322,6 +324,19 @@ function renderDealDetail() {
   const risks = deal.risks.length
     ? `<ul>${deal.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
     : "<p>No additional risks recorded.</p>";
+  const comparableBlock = deal.marketComparables.length
+    ? `<div class="market-comparables">
+        <h4>Current same-model eBay comparables</h4>
+        ${deal.comparisonNote ? `<p>${escapeHtml(deal.comparisonNote)}</p>` : ""}
+        <div class="comparable-grid">
+          ${deal.marketComparables.map(item => `<a class="comparable-card" href="${escapeHtml(safeUrl(item.sourceUrl))}" target="_blank" rel="noreferrer">
+            <strong>${escapeHtml(money(item.askingPriceAud))}</strong>
+            <span>${escapeHtml(item.title)}</span>
+            <small>${escapeHtml(item.note || "")}</small>
+          </a>`).join("")}
+        </div>
+      </div>`
+    : "";
 
   panel.hidden = false;
   panel.innerHTML = `
@@ -349,6 +364,7 @@ function renderDealDetail() {
     <div class="specs">${deal.specs.map(s => `<span class="spec">${escapeHtml(s)}</span>`).join("")}</div>
     <p class="note"><strong>Evidence:</strong> ${escapeHtml(deal.evidenceNote)}</p>
     <div class="detail-risks"><strong>Risks / caveats</strong>${risks}</div>
+    ${comparableBlock}
     <div class="deal-detail-actions">
       <a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open source ↗</a>
       <button type="button" class="copy-link-button" id="copyDealLink">Copy share link</button>
