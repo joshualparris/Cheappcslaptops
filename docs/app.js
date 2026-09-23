@@ -1,8 +1,11 @@
-const money = n => new Intl.NumberFormat("en-AU", {
-  style: "currency",
-  currency: "AUD",
-  minimumFractionDigits: Number.isInteger(n) ? 0 : 2
-}).format(n);
+const money = n => {
+  if (!Number.isFinite(n)) return "Unknown";
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    minimumFractionDigits: Number.isInteger(n) ? 0 : 2
+  }).format(n);
+};
 
 const labels = { desktop: "Desktop", laptop: "Laptop", part: "Part" };
 
@@ -135,11 +138,17 @@ function normalise(listing) {
   };
 }
 
-function isActionableDeal(d) {
-  return d.buyingMode !== "auction" &&
-    d.urlKind === "direct-listing" &&
+function hasVerifiedDirectLink(d) {
+  return d.urlKind === "direct-listing" &&
     d.availabilityStatus === "active" &&
     d.availabilityConfidence === "verified";
+}
+
+function isActionableDeal(d) {
+  return d.buyingMode !== "auction" &&
+    hasVerifiedDirectLink(d) &&
+    Number.isFinite(d.total) &&
+    d.shippingConfidence !== "unknown";
 }
 
 function isResearchLead(d) {
@@ -195,8 +204,8 @@ function card(d) {
     <div class="research-lead-warning">
       Research lead only — no verified current direct listing link is available.
     </div>`;
-  const sourceControl = actionable
-    ? `<a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open verified listing ↗</a>`
+  const sourceControl = hasVerifiedDirectLink(d)
+    ? `<a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open exact listing ↗</a>`
     : '<span class="source-unavailable" aria-label="No verified direct listing link">No verified listing link</span>';
   const riskList = d.risks.length
     ? `<ul>${d.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
@@ -277,7 +286,9 @@ function sortDeals(items) {
       const bRam = Number.isFinite(b.ramGb) ? b.ramGb : -1;
       return bRam - aRam || a.total - b.total;
     }
-    return a.total - b.total;
+    const aTotal = Number.isFinite(a.total) ? a.total : Number.POSITIVE_INFINITY;
+    const bTotal = Number.isFinite(b.total) ? b.total : Number.POSITIVE_INFINITY;
+    return aTotal - bTotal;
   });
 }
 
@@ -390,8 +401,8 @@ function renderDealDetail() {
     <div class="detail-risks"><strong>Risks / caveats</strong>${risks}</div>
     ${comparableBlock}
     <div class="deal-detail-actions">
-      ${isActionableDeal(deal)
-        ? `<a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open verified listing ↗</a>`
+      ${hasVerifiedDirectLink(deal)
+        ? `<a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open exact listing ↗</a>`
         : '<span class="source-unavailable">No verified current listing link</span>'}
       <button type="button" class="copy-link-button" id="copyDealLink">Copy share link</button>
     </div>
