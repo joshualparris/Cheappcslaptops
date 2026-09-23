@@ -7,6 +7,7 @@ on:
       - "docs/**"
       - "scripts/validate_data.py"
       - "scripts/validate_fleet.py"
+      - "scripts/smoke_site.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -34,6 +35,9 @@ jobs:
 
       - name: Validate fleet valuation data
         run: python3 scripts/validate_fleet.py
+
+      - name: Smoke-test static site
+        run: python3 scripts/smoke_site.py
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
