@@ -29,7 +29,7 @@ def base_listing():
         "allInAud": 100,
         "shippingConfidence": "advertised",
         "availabilityStatus": "active",
-        "availabilityConfidence": "observed-listing",
+        "availabilityConfidence": "verified",
         "firstSeenAt": "2026-09-23",
         "lastCheckedAt": "2026-09-23",
         "hardware": {
