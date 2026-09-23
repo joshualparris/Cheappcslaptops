@@ -42,6 +42,25 @@ Key findings:
 Full research:
 - [Dubbo Refurbished Laptop Market — Viability Research](docs/DUBBO-REFURB-MARKET.md)
 
+## Current fleet resale valuation
+
+The site now also tracks the estimated resale value of Josh's current computer fleet.
+
+Current 23 September 2026 valuation:
+- **15 active laptops:** about **$1,860** maximum plausible gross
+- **7 active desktops:** about **$1,870** if sold complete
+- **Whole active fleet sold complete:** about **$3,730**
+- **Optimised upper end with the Crosshair V system parted out:** about **$3,830**
+- **Faster-sale expectation:** roughly **$2,700–$3,200**
+
+These are upper-end indicative targets, not guaranteed completed-sale prices. Marketplace fees, postage, repairs, returns and time are not deducted.
+
+The fleet section includes all tracked machines, specs/condition notes, maximum plausible sale prices and recommended selling channels.
+
+Full valuation:
+- [Current Fleet Resale Valuation](docs/FLEET-RESALE-VALUATION.md)
+- [Structured fleet valuation data](docs/data/fleet-valuations-2026-09-23.json)
+
 ## Core rules
 
 - Hard budgets are **all-in**: item + postage + mandatory fees + essential missing parts.
