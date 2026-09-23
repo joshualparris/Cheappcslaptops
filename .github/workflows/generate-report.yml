@@ -50,7 +50,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Generate $100 PC challenge PDF"
+          git commit -m 'Generate $100 PC challenge PDF'
 
           # Other roadmap micro-commits can legitimately land while this job runs.
           # Rebase the PDF-only commit and retry instead of failing on a non-fast-forward.
