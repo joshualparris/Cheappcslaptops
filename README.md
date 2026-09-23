@@ -1,6 +1,6 @@
 # Cheap PCs & Laptops
 
-A live Australian bargain-finder for **ultra-budget PCs, laptops and parts**, starting with a simple challenge:
+An evidence-labelled Australian bargain board for **ultra-budget PCs, laptops and parts**, starting with a simple challenge:
 
 > **How powerful a complete PC can we get for $100 AUD all-in, delivered to or collected around Dubbo NSW 2830?**
 
@@ -27,7 +27,7 @@ Current 23 September 2026 sweep includes:
 - Lenovo ThinkPad Core i3 13.3-inch and Acer Aspire 5750 — **$100 shown delivered**
 - cheap DDR3 RAM, low-profile GPUs, SATA SSDs and a GTX 960, all with shipping included in the displayed total
 
-The site has desktop/laptop/parts filters, search, delivered-price breakdowns, compatibility notes and source links.
+The site now renders directly from canonical JSON and includes desktop/laptop/parts filters, a separate auction-watch view, shareable search/filter URLs, per-listing detail links, freshness/evidence badges, delivered-price breakdowns, compatibility notes and source links.
 
 > Shipping is the amount shown by the current marketplace result. Re-check delivery to postcode **2830** at checkout before buying.
 
@@ -59,11 +59,25 @@ Current 23 September 2026 valuation:
 
 These are upper-end indicative targets, not guaranteed completed-sale prices. Marketplace fees, postage, repairs, returns and time are not deducted.
 
-The fleet section includes all tracked machines, specs/condition notes, maximum plausible sale prices and recommended selling channels.
+The fleet section includes all tracked machines, specs/condition notes, maximum plausible sale prices, recommended selling channels, search/category controls and current pricing-evidence anchors.
 
 Full valuation:
 - [Current Fleet Resale Valuation](docs/FLEET-RESALE-VALUATION.md)
 - [Structured fleet valuation data](docs/data/fleet-valuations-2026-09-23.json)
+
+## Refurb profit calculator
+
+The website includes a client-side calculator for:
+- purchase price and inbound freight
+- RAM, SSD, battery, charger and repairs
+- platform/payment fees
+- negotiation allowance
+- failure/return reserve
+- second-hand dealer licence allocation per unit
+- labour minutes and a chosen hourly value
+- expected achieved sale price
+
+It reports cash cost before labour, break-even including labour, projected profit after allowances, and effective return per labour hour. The calculator is a planning tool only; it does not guarantee an achieved price or determine tax/legal obligations.
 
 ## Core rules
 
@@ -105,13 +119,13 @@ https://joshualparris.github.io/Cheappcslaptops/
 ## Next phases
 
 - confirm/apply for eBay Buy API production eligibility before building the production adapter
-- sold/gone detection and price history
+- automated sold/gone detection, refresh and price history
 - verified postcode-specific shipping where an authorised source supports it
 - more retailer/feed sources plus local/manual marketplace imports
 - deterministic parts compatibility and a real sub-$100 build combiner
-- move generated report facts fully onto canonical structured data
+- browser-level tests for interactive site behaviour
 - track Dubbo refurb listing views, enquiries, offers and time-to-sale
 
 ## Status
 
-**Working bargain-board v1 created 23 September 2026.** Current listings are manually researched snapshots; automated source refresh is the next phase.
+**Working research-backed bargain board and fleet valuation site.** Canonical listing data, fleet valuation data, validators, static-site smoke tests and JavaScript syntax checks run in CI before Pages deploys. Current marketplace listings are still manually researched snapshots; automated source refresh is the next major phase.
