@@ -1167,6 +1167,44 @@
         "Requires auxiliary PCIe power",
         "Not suitable for most SFF office PCs"
       ]
+    },
+    {
+      "id": "hp-probook-11-g2-i3-6100u-89",
+      "kind": "laptop",
+      "listingClass": "complete-system",
+      "buyingMode": "fixed-price",
+      "title": "HP ProBook 11 G2",
+      "seller": "albitcomputers",
+      "source": "eBay Australia",
+      "sourceUrl": "https://www.ebay.com.au/itm/178408823215",
+      "urlKind": "direct-listing",
+      "itemPriceAud": 89,
+      "shippingAud": 0,
+      "mandatoryFeesAud": 0,
+      "requiredPartsAud": 0,
+      "allInAud": 89,
+      "shippingConfidence": "advertised",
+      "availabilityStatus": "active",
+      "availabilityConfidence": "observed-listing",
+      "firstSeenAt": "2026-09-23",
+      "lastCheckedAt": "2026-09-23",
+      "award": "Strong sub-$100 business laptop",
+      "hardware": {
+        "cpu": "Intel Core i3-6100U",
+        "gpu": "Intel HD Graphics 520",
+        "ramGb": 4,
+        "storage": "128GB SSD",
+        "formFactor": "11.6-inch laptop",
+        "osInstalled": "Windows 11",
+        "osSupport": "unsupported-unverified"
+      },
+      "evidenceNote": "Exact eBay item 178408823215. User-supplied current listing screenshots on 23 Sep 2026 show AU $89.00, free postage, Used condition, seller albitcomputers (99.4% positive), and a Buy another button indicating stock was still offered. Title states i3-6100U, 4GB RAM, 128GB SSD, webcam, Wi-Fi, Bluetooth, HDMI and Windows 11.",
+      "note": "A much stronger under-$100 Windows option than most Celeron/eMMC laptops in the sweep: 6th-gen Core i3 plus a real 128GB SSD, with RAM upgrade potential.",
+      "risks": [
+        "Only 4GB RAM as listed",
+        "Intel Core i3-6100U is not on Microsoft's normal officially supported Windows 11 CPU list",
+        "Used-condition battery health and charger inclusion should be confirmed from the full listing before purchase"
+      ]
     }
   ]
 }
