@@ -13,9 +13,18 @@
     "desktopsMaxWithCrosshairPartOut": 1970,
     "fleetMaxCompleteSale": 3730,
     "fleetMaxOptimisedSale": 3830,
-    "headlineUpperEndRange": [3700, 3800],
-    "fasterSaleRange": [2700, 3200],
-    "excludedAsIsExtraRange": [80, 130]
+    "headlineUpperEndRange": [
+      3700,
+      3800
+    ],
+    "fasterSaleRange": [
+      2700,
+      3200
+    ],
+    "excludedAsIsExtraRange": [
+      80,
+      130
+    ]
   },
   "platformStrategy": [
     {
@@ -55,7 +64,10 @@
       "name": "MacBook Air Early 2015",
       "spec": "PCIe SSD · exact RAM/SSD capacity still to be confirmed",
       "maxPlausible": 230,
-      "indicativeRange": [180, 230],
+      "indicativeRange": [
+        180,
+        230
+      ],
       "recommendedPlatform": "eBay / Facebook Marketplace"
     },
     {
@@ -112,7 +124,10 @@
       "name": "HP 15-db0034AU",
       "spec": "HDD · requires external display / HDMI",
       "maxPlausible": 60,
-      "indicativeRange": [50, 60],
+      "indicativeRange": [
+        50,
+        60
+      ],
       "condition": "Fault/limitation must be disclosed",
       "recommendedPlatform": "Facebook Marketplace"
     },
@@ -128,7 +143,10 @@
       "name": "Compaq 610",
       "spec": "Core 2 Duo T5870 · HDD",
       "maxPlausible": 60,
-      "indicativeRange": [50, 60],
+      "indicativeRange": [
+        50,
+        60
+      ],
       "recommendedPlatform": "Facebook Marketplace"
     },
     {
@@ -143,7 +161,10 @@
       "name": "Lenovo ThinkPad T61 6457-BP2",
       "spec": "Core 2 Duo T7500 · 4 GB RAM · HDD · display history/issues",
       "maxPlausible": 80,
-      "indicativeRange": [60, 80],
+      "indicativeRange": [
+        60,
+        80
+      ],
       "recommendedPlatform": "eBay / Facebook Marketplace"
     },
     {
@@ -151,7 +172,10 @@
       "name": "JParrisDesktop",
       "spec": "Core i5-9400 · 16 GB RAM · GTX 1660 6 GB · SSD + 1 TB HDD",
       "maxPlausible": 550,
-      "indicativeRange": [500, 550],
+      "indicativeRange": [
+        500,
+        550
+      ],
       "recommendedPlatform": "Facebook Marketplace / Gumtree"
     },
     {
@@ -166,7 +190,10 @@
       "name": "Lenovo 7567Y2M desktop",
       "spec": "Core i5-2400S · 8 GB RAM · SSD",
       "maxPlausible": 120,
-      "indicativeRange": [100, 120],
+      "indicativeRange": [
+        100,
+        120
+      ],
       "recommendedPlatform": "Facebook Marketplace"
     },
     {
@@ -174,7 +201,10 @@
       "name": "Apple iMac 24-inch Early 2009",
       "spec": "Core 2 Duo 2.66 GHz · 4 GB RAM · HDD",
       "maxPlausible": 150,
-      "indicativeRange": [120, 150],
+      "indicativeRange": [
+        120,
+        150
+      ],
       "recommendedPlatform": "Facebook Marketplace / Gumtree"
     },
     {
@@ -182,7 +212,10 @@
       "name": "Lenovo C260 #1",
       "spec": "Celeron J1800 · 4 GB RAM · HDD",
       "maxPlausible": 100,
-      "indicativeRange": [80, 100],
+      "indicativeRange": [
+        80,
+        100
+      ],
       "recommendedPlatform": "Facebook Marketplace"
     },
     {
@@ -190,7 +223,10 @@
       "name": "Lenovo C260 #2",
       "spec": "Celeron J1800 · 4 GB RAM · HDD",
       "maxPlausible": 100,
-      "indicativeRange": [80, 100],
+      "indicativeRange": [
+        80,
+        100
+      ],
       "recommendedPlatform": "Facebook Marketplace"
     },
     {
@@ -198,7 +234,10 @@
       "name": "Crosshair V Formula-Z desktop",
       "spec": "AMD FX-6300 · 16 GB DDR3 · XFX Radeon R9 290 4 GB · 240 GB SanDisk SSD · Thermaltake Litepower Gen3 500 W",
       "maxPlausible": 400,
-      "indicativeRange": [350, 400],
+      "indicativeRange": [
+        350,
+        400
+      ],
       "partOutMaxPlausible": 500,
       "condition": "Enthusiast motherboard may be worth more when parted out than as a complete FX-era tower",
       "recommendedPlatform": "eBay for parts / Facebook Marketplace complete"
@@ -210,14 +249,20 @@
       "name": "Toshiba Satellite P750",
       "reason": "Excluded from active fleet because a dedicated charger is missing",
       "asIsMaxPlausible": 80,
-      "indicativeRange": [50, 80]
+      "indicativeRange": [
+        50,
+        80
+      ]
     },
     {
       "category": "laptop",
       "name": "Toshiba Satellite A200",
       "reason": "Excluded from active fleet because a dedicated charger is missing",
       "asIsMaxPlausible": 50,
-      "indicativeRange": [30, 50]
+      "indicativeRange": [
+        30,
+        50
+      ]
     }
   ],
   "importantNotes": [
@@ -226,5 +271,69 @@
     "Older Windows-unsupported laptops are capped by cheap availability of much newer refurbished business laptops.",
     "Marketplace asking prices are not the same as completed-sale prices. These figures are deliberately presented as plausible upper-end targets, not guarantees.",
     "A fast-sale strategy usually means accepting materially less than the maximum individual-sale total."
+  ],
+  "evidenceAnchors": [
+    {
+      "machine": "HP ProBook x360 435 G8",
+      "observed": "Exact Ryzen 5 5600U / 16 GB / 256 GB used example ended at A$289; another current used/refurbished example was listed at A$385.",
+      "urls": [
+        "https://www.ebay.com.au/itm/285880946500",
+        "https://www.ebay.com.au/itm/197062184475"
+      ],
+      "interpretation": "A$350 is an upper-end target only if this unit's thermal issue is demonstrably fixed and the overall condition is strong."
+    },
+    {
+      "machine": "HP ProBook 11 EE G2",
+      "observed": "Exact i3-6100U / 8 GB / 128 GB examples were listed around A$80.10 with 161 sold, A$115.58, and higher asks around A$185.",
+      "urls": [
+        "https://www.ebay.com.au/itm/256629237200",
+        "https://www.ebay.com.au/itm/398093417023"
+      ],
+      "interpretation": "A$100 is a defensible local upper target without assuming the highest dealer asking price is achievable."
+    },
+    {
+      "machine": "MacBook Air Early 2015",
+      "observed": "An 8 GB / 128 GB refurbished 2015 MacBook Air sold for A$229; current pre-owned examples also appear materially lower depending on condition.",
+      "urls": [
+        "https://www.ebay.com.au/itm/178232210431",
+        "https://www.ebay.com.au/shop/2015-macbook-air?_nkw=2015+macbook+air"
+      ],
+      "interpretation": "The A$180–A$230 range is strongly condition-, battery- and capacity-dependent."
+    },
+    {
+      "machine": "Apple iMac Retina 5K 27-inch 2017",
+      "observed": "An exact 3.4 GHz i5 / 8 GB / 1 TB / Radeon Pro 570 4 GB Gumtree example was listed at A$450; a 24 GB example was listed at A$550.",
+      "urls": [
+        "https://www.gumtree.com.au/web/listing/desktops/1344609352",
+        "https://www.gumtree.com.au/web/listing/desktops/1344709690"
+      ],
+      "interpretation": "A$450 is directly anchored to a close current Australian comparable."
+    },
+    {
+      "machine": "JParrisDesktop",
+      "observed": "Comparable Australian systems with i5-9400F, 16 GB RAM and GTX 1660 Super were listed around A$499–A$599.",
+      "urls": [
+        "https://www.gumtree.com.au/web/listing/desktops/1344573888",
+        "https://www.gumtree.com.au/web/listing/desktops/1344486203"
+      ],
+      "interpretation": "This PC has a non-Super GTX 1660 but useful extra storage, so A$500–A$550 is an upper-end asking target rather than a guaranteed achieved price."
+    },
+    {
+      "machine": "Crosshair V Formula-Z desktop",
+      "observed": "A bare Crosshair V Formula-Z without I/O shield sold around A$140 equivalent, while tested-board asks can be far higher.",
+      "urls": [
+        "https://www.ebay.com.au/itm/287294327709",
+        "https://www.ebay.com.au/str/yukimi"
+      ],
+      "interpretation": "The unusually valuable motherboard is why parting the FX-era system may beat the complete-tower price."
+    },
+    {
+      "machine": "Apple iMac 24-inch Early 2009",
+      "observed": "An exact 2.66 GHz Core 2 Duo / 4 GB / 640 GB 24-inch 2009 iMac was listed at A$149 in Australia.",
+      "urls": [
+        "https://www.ebay.com.au/itm/295549295876"
+      ],
+      "interpretation": "A$120–A$150 is consistent with a close Australian asking-price anchor, subject to condition and local pickup demand."
+    }
   ]
 }
