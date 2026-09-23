@@ -310,9 +310,9 @@ async function renderFleetValuation(){
     ].map(([value,label])=>`<div class="fleet-stat"><strong>${value}</strong><span>${label}</span></div>`).join("");
 
     platformsEl.innerHTML=data.platformStrategy.map(p=>`<article class="market-callout">
-      <span class="award">${p.platform}</span>
-      <h3>${p.bestFor}</h3>
-      <p>${p.why}</p>
+      <span class="award">${escapeHtml(p.platform)}</span>
+      <h3>${escapeHtml(p.bestFor)}</h3>
+      <p>${escapeHtml(p.why)}</p>
     </article>`).join("");
 
     const rows=[...data.machines].sort((a,b)=>{
@@ -324,18 +324,18 @@ async function renderFleetValuation(){
       const extra=m.partOutMaxPlausible
         ? `<div class="partout">Up to ${money(m.partOutMaxPlausible)} parted</div>`
         : "";
-      const condition=m.condition ? `<div class="row-note">${m.condition}</div>` : "";
+      const condition=m.condition ? `<div class="row-note">${escapeHtml(m.condition)}</div>` : "";
       return `<tr>
-        <td><strong>${m.name}</strong>${condition}</td>
-        <td>${m.spec}</td>
-        <td><span class="type">${m.category}</span></td>
-        <td class="fleet-price"><strong>${saleValueLabel(m)}</strong>${extra}</td>
-        <td>${m.recommendedPlatform||"—"}</td>
+        <td><strong>${escapeHtml(m.name)}</strong>${condition}</td>
+        <td>${escapeHtml(m.spec)}</td>
+        <td><span class="type">${escapeHtml(m.category)}</span></td>
+        <td class="fleet-price"><strong>${escapeHtml(saleValueLabel(m))}</strong>${extra}</td>
+        <td>${escapeHtml(m.recommendedPlatform||"—")}</td>
       </tr>`;
     }).join("");
 
     const ex=data.notCountedInMainFleet;
-    excludedEl.innerHTML=`<strong>Not counted in the main total:</strong> ${ex.map(m=>`${m.name} (${money(m.indicativeRange[0])}–${money(m.indicativeRange[1])} as-is; ${m.reason.toLowerCase()})`).join("; ")}.`;
+    excludedEl.innerHTML=`<strong>Not counted in the main total:</strong> ${ex.map(m=>`${escapeHtml(m.name)} (${escapeHtml(money(m.indicativeRange[0]))}–${escapeHtml(money(m.indicativeRange[1]))} as-is; ${escapeHtml(m.reason.toLowerCase())})`).join("; ")}.`;
   }catch(error){
     statsEl.innerHTML=`<div class="fleet-load-error">Fleet valuation data could not be loaded. <a href="./FLEET-RESALE-VALUATION.md">Open the written report instead.</a></div>`;
     console.error("Fleet valuation load failed",error);
