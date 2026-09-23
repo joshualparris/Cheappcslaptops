@@ -284,12 +284,16 @@
     },
     {
       "machine": "HP ProBook 11 EE G2",
-      "observed": "Exact i3-6100U / 8 GB / 128 GB examples were listed around A$80.10 with 161 sold, A$115.58, and higher asks around A$185.",
+      "observed": "Current Australian eBay evidence includes a direct AU $89 delivered i3-6100U / 4 GB / 128 GB SSD listing, an 8 GB / 128 GB example at AU $115.58, 4 GB dealer asks around AU $115–$139, and an 8 GB dealer ask at AU $185.",
       "urls": [
-        "https://www.ebay.com.au/itm/256629237200",
-        "https://www.ebay.com.au/itm/398093417023"
+        "https://www.ebay.com.au/itm/178408823215",
+        "https://www.ebay.com.au/itm/398093417023",
+        "https://www.ebay.com.au/itm/117383825686",
+        "https://www.ebay.com.au/itm/127790826099",
+        "https://www.ebay.com.au/itm/127940742030",
+        "https://www.ebay.com.au/itm/117267303202"
       ],
-      "interpretation": "A$100 is a defensible local upper target without assuming the highest dealer asking price is achievable."
+      "interpretation": "The AU $89 delivered 4 GB listing is a notably strong buy. Josh's 8 GB unit should plausibly sit above that base configuration, but the much higher dealer asks should not be treated as guaranteed private-sale outcomes."
     },
     {
       "machine": "MacBook Air Early 2015",
