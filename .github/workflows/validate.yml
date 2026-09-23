@@ -5,18 +5,29 @@ on:
     branches: [main]
     paths:
       - "docs/data/**"
-      - "scripts/validate_data.py"
-      - "scripts/validate_fleet.py"
-      - "scripts/smoke_site.py"
       - "docs/index.html"
       - "docs/app.js"
       - "docs/styles.css"
+      - "docs/refurb-calculator.html"
+      - "docs/refurb-calculator.mjs"
+      - "docs/refurb-profit-core.mjs"
+      - "scripts/validate_data.py"
+      - "scripts/validate_fleet.py"
+      - "scripts/smoke_site.py"
       - "tests/**"
       - ".github/workflows/validate.yml"
   pull_request:
     paths:
       - "docs/data/**"
+      - "docs/index.html"
+      - "docs/app.js"
+      - "docs/styles.css"
+      - "docs/refurb-calculator.html"
+      - "docs/refurb-calculator.mjs"
+      - "docs/refurb-profit-core.mjs"
       - "scripts/validate_data.py"
+      - "scripts/validate_fleet.py"
+      - "scripts/smoke_site.py"
       - "tests/**"
       - ".github/workflows/validate.yml"
   workflow_dispatch:
@@ -34,5 +45,14 @@ jobs:
       - name: Run validator unit tests
         run: python3 -m unittest discover -s tests -p "test_*.py"
 
+      - name: Test refurb profit calculations
+        run: node tests/test_refurb_profit.mjs
+
       - name: Validate current listings
         run: python3 scripts/validate_data.py
+
+      - name: Validate fleet valuation
+        run: python3 scripts/validate_fleet.py
+
+      - name: Smoke-test static site
+        run: python3 scripts/smoke_site.py
