@@ -44,9 +44,27 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/reports/100-dollar-pc-challenge-2026-09-23.pdf
+
           if git diff --cached --quiet; then
             echo "PDF is already up to date."
-          else
-            git commit -m "Generate $100 PC challenge PDF"
-            git push
+            exit 0
           fi
+
+          git commit -m "Generate $100 PC challenge PDF"
+
+          # Other roadmap micro-commits can legitimately land while this job runs.
+          # Rebase the PDF-only commit and retry instead of failing on a non-fast-forward.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push race on attempt $attempt; refreshing main before retry."
+            sleep 2
+          done
+
+          echo "Could not publish generated PDF after 3 attempts."
+          exit 1
