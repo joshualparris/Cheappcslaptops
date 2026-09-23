@@ -269,7 +269,7 @@
         "storage": "500GB HDD",
         "formFactor": "15.6-inch laptop",
         "osInstalled": "Windows 10",
-        "osSupport": "unsupported-legacy"
+        "osSupport": "unsupported-unverified"
       },
       "evidenceNote": "Current eBay Australia result showed AU $80 item price plus AU $20 postage. Postcode-2830 checkout was not transactionally verified.",
       "note": "Older but complete 15.6-inch Windows laptop with 4GB RAM, 500GB storage, DVD and HDMI at exactly $100 shown delivered.",
@@ -383,7 +383,7 @@
         "storage": "32GB eMMC",
         "formFactor": "14-inch laptop",
         "osInstalled": "Windows 10",
-        "osSupport": "unsupported-legacy"
+        "osSupport": "unsupported-unverified"
       },
       "evidenceNote": "Current eBay Australia result showed AU $89 with free delivery. Postcode-2830 checkout was not transactionally verified.",
       "note": "Very basic Windows notebook; useful only for light tasks because 2GB RAM and 32GB storage are severe constraints.",
@@ -421,7 +421,7 @@
         "storage": "500GB HDD",
         "formFactor": "Laptop",
         "osInstalled": "Windows 10",
-        "osSupport": "unsupported-legacy"
+        "osSupport": "unsupported-unverified"
       },
       "evidenceNote": "Current eBay Australia result showed AU $76 item price plus AU $15 postage. Postcode-2830 checkout was not transactionally verified.",
       "note": "A very old but inexpensive complete Windows laptop with 4GB RAM and a large-for-the-price 500GB hard drive.",
