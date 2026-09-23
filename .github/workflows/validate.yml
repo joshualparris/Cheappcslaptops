@@ -6,6 +6,7 @@ on:
     paths:
       - "docs/data/**"
       - "scripts/validate_data.py"
+      - "scripts/validate_fleet.py"
       - "tests/**"
       - ".github/workflows/validate.yml"
   pull_request:
