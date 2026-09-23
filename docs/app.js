@@ -39,6 +39,42 @@ function formatDate(value) {
       }).format(date);
 }
 
+function freshnessFor(value, status) {
+  if (status === "sold") return { key: "sold", label: "Sold" };
+  if (status === "gone") return { key: "gone", label: "Gone" };
+  if (status === "watch") return { key: "watch", label: "Watch only" };
+  if (status === "stale") return { key: "stale", label: "Stale" };
+
+  const checked = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(checked.getTime())) return { key: "unknown", label: "Age unknown" };
+
+  const now = new Date();
+  const todayUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const ageDays = Math.max(0, Math.floor((todayUtc - checked.getTime()) / 86400000));
+
+  if (ageDays <= 1) return { key: "fresh", label: "Fresh" };
+  if (ageDays <= 3) return { key: "aging", label: `${ageDays}d old` };
+  return { key: "stale", label: `Stale · ${ageDays}d` };
+}
+
+function shippingLabel(value) {
+  return {
+    verified: "Shipping verified",
+    advertised: "Shipping advertised",
+    estimated: "Shipping estimated",
+    pickup: "Pickup only",
+    unknown: "Shipping unknown"
+  }[value] || "Shipping unclear";
+}
+
+function evidenceLabel(urlKind) {
+  return {
+    "direct-listing": "Direct listing",
+    "search-fallback": "Search fallback",
+    "manual-import": "Manual import"
+  }[urlKind] || "Source evidence";
+}
+
 function specsFor(listing) {
   const h = listing.hardware || {};
   const specs = [];
@@ -64,10 +100,12 @@ function normalise(listing) {
     note: listing.note,
     source: listing.sourceUrl,
     checked: formatDate(listing.lastCheckedAt),
+    checkedRaw: listing.lastCheckedAt,
     award: listing.award,
     buyingMode: listing.buyingMode,
     shippingConfidence: listing.shippingConfidence,
     availabilityStatus: listing.availabilityStatus,
+    availabilityConfidence: listing.availabilityConfidence,
     urlKind: listing.urlKind,
     evidenceNote: listing.evidenceNote,
     risks: listing.risks || []
@@ -83,9 +121,9 @@ function renderStats(payload) {
 
   stats.innerHTML = [
     [money(payload.challenge.budgetAud), "hard system cap"],
-    [systems.length, "qualifying systems"],
+    [systems.length, "fixed-price systems"],
     [cheapestSystem === null ? "—" : money(cheapestSystem), "cheapest system"],
-    [parts.length, "useful parts"]
+    [parts.length, "parts leads"]
   ].map(([value, label]) =>
     `<div class="stat"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`
   ).join("");
@@ -97,18 +135,29 @@ function renderLeaders() {
     .map(id => deals.find(item => item.id === id))
     .filter(Boolean);
 
-  document.querySelector("#leaders").innerHTML = leaders.map(d => `
-    <article class="leader">
-      <span class="award">${escapeHtml(d.award || "Stand-out")}</span>
-      <h3>${escapeHtml(d.title)}</h3>
-      <div class="big-price">${escapeHtml(money(d.total))} <small>all-in shown</small></div>
-      <p>${d.specs.slice(0, 3).map(escapeHtml).join(" · ")}</p>
-    </article>
-  `).join("");
+  document.querySelector("#leaders").innerHTML = leaders.map(d => {
+    const freshness = freshnessFor(d.checkedRaw, d.availabilityStatus);
+    return `
+      <article class="leader">
+        <div class="leader-badges">
+          <span class="award">${escapeHtml(d.award || "Stand-out")}</span>
+          <span class="evidence-tag evidence-${escapeHtml(freshness.key)}">${escapeHtml(freshness.label)}</span>
+        </div>
+        <h3>${escapeHtml(d.title)}</h3>
+        <div class="big-price">${escapeHtml(money(d.total))} <small>all-in shown</small></div>
+        <p>${d.specs.slice(0, 3).map(escapeHtml).join(" · ")}</p>
+      </article>
+    `;
+  }).join("");
 }
 
 function card(d) {
   const shipping = d.shipping === 0 ? "FREE" : money(d.shipping);
+  const freshness = freshnessFor(d.checkedRaw, d.availabilityStatus);
+  const riskList = d.risks.length
+    ? `<ul>${d.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
+    : "<p>No additional risks recorded.</p>";
+
   return `<article class="card">
     <div class="card-top">
       <span class="type">${escapeHtml(labels[d.type] || d.type)}</span>
@@ -116,12 +165,26 @@ function card(d) {
     </div>
     <h3>${escapeHtml(d.title)}</h3>
     <div class="source">${escapeHtml(d.seller)}</div>
+
+    <div class="evidence-row" aria-label="Evidence status">
+      <span class="evidence-tag evidence-${escapeHtml(freshness.key)}">${escapeHtml(freshness.label)}</span>
+      <span class="evidence-tag">${escapeHtml(shippingLabel(d.shippingConfidence))}</span>
+      <span class="evidence-tag">${escapeHtml(evidenceLabel(d.urlKind))}</span>
+    </div>
+
     <div class="breakdown">
       <div><span>Item</span><strong>${escapeHtml(money(d.item))}</strong></div>
       <div><span>Shipping shown</span><strong>${escapeHtml(shipping)}</strong></div>
     </div>
     <div class="specs">${d.specs.map(s => `<span class="spec">${escapeHtml(s)}</span>`).join("")}</div>
     <p class="note">${escapeHtml(d.note)}</p>
+
+    <details class="evidence-details">
+      <summary>Evidence & risks</summary>
+      <p><strong>Evidence:</strong> ${escapeHtml(d.evidenceNote)}</p>
+      ${riskList}
+    </details>
+
     <div class="card-footer">
       <span class="checked">Checked ${escapeHtml(d.checked)}</span>
       <a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open source ↗</a>
@@ -132,7 +195,7 @@ function card(d) {
 function render() {
   const filtered = deals
     .filter(d => activeFilter === "all" || d.type === activeFilter)
-    .filter(d => !query || [d.title, d.seller, ...d.specs, d.note]
+    .filter(d => !query || [d.title, d.seller, ...d.specs, d.note, d.evidenceNote, ...d.risks]
       .join(" ")
       .toLowerCase()
       .includes(query))
