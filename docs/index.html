@@ -192,6 +192,42 @@
         </div>
       </div>
 
+      <div class="profit-calculator" id="calculator">
+        <div class="calculator-heading">
+          <div>
+            <div class="eyebrow dark">REFURB PROFIT CALCULATOR</div>
+            <h3>Does a flip still make sense after the boring costs?</h3>
+            <p>Enter your own numbers. The calculator includes parts, selling costs, risk reserves, licence allocation and a value for your labour.</p>
+          </div>
+          <button class="calculator-reset" id="calculatorReset" type="button">Reset</button>
+        </div>
+
+        <div class="calculator-grid">
+          <label>Purchase price <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcPurchase" placeholder="100"></label>
+          <label>Inbound freight <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcFreight" placeholder="15"></label>
+          <label>RAM <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcRam" placeholder="20"></label>
+          <label>SSD <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcSsd" placeholder="25"></label>
+          <label>Battery <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcBattery" placeholder="0"></label>
+          <label>Charger <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcCharger" placeholder="0"></label>
+          <label>Repairs / consumables <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcRepairs" placeholder="10"></label>
+          <label>Platform / payment fees <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcFees" placeholder="0"></label>
+          <label>Negotiation allowance <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcNegotiation" placeholder="20"></label>
+          <label>Failure / return reserve <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcReserve" placeholder="15"></label>
+          <label>Licence allocation per unit <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" data-cost="cash" id="calcLicence" placeholder="10"></label>
+          <label>Expected achieved sale price <span>A$</span><input inputmode="decimal" type="number" min="0" step="0.01" id="calcSale" placeholder="230"></label>
+          <label>Labour time <span>minutes</span><input inputmode="numeric" type="number" min="0" step="1" id="calcMinutes" placeholder="60"></label>
+          <label>Value of your time <span>A$/hour</span><input inputmode="decimal" type="number" min="0" step="0.01" id="calcHourly" placeholder="30"></label>
+        </div>
+
+        <div class="calculator-results" id="calculatorResults" role="status" aria-live="polite">
+          <div><span>Cash cost before labour</span><strong id="calcCashCost">$0</strong></div>
+          <div><span>Break-even incl. labour</span><strong id="calcBreakEven">$0</strong></div>
+          <div><span>Profit after allowances + labour</span><strong id="calcProfit">$0</strong></div>
+          <div><span>Return per labour hour*</span><strong id="calcHourlyReturn">—</strong></div>
+        </div>
+        <p class="fineprint">*Return per labour hour = sale price minus cash costs, divided by entered labour hours. This is a planning tool, not a guarantee of sale price, tax treatment or legal compliance.</p>
+      </div>
+
       <div class="margin-box">
         <div>
           <div class="eyebrow dark">INDICATIVE BUYING MODEL</div>
