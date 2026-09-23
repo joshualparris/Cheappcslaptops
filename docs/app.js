@@ -342,3 +342,56 @@ async function renderFleetValuation(){
   }
 }
 renderFleetValuation();
+
+
+function initProfitCalculator(){
+  const root=document.querySelector("#calculator");
+  if(!root) return;
+
+  const cashInputs=[...root.querySelectorAll('[data-cost="cash"]')];
+  const sale=root.querySelector("#calcSale");
+  const minutes=root.querySelector("#calcMinutes");
+  const hourly=root.querySelector("#calcHourly");
+  const reset=root.querySelector("#calculatorReset");
+
+  const read=input=>{
+    const value=Number.parseFloat(input.value);
+    return Number.isFinite(value)&&value>=0?value:0;
+  };
+
+  const output=(selector,value)=>{
+    const el=root.querySelector(selector);
+    if(el) el.textContent=value;
+  };
+
+  const calculate=()=>{
+    const cashCost=cashInputs.reduce((sum,input)=>sum+read(input),0);
+    const salePrice=read(sale);
+    const labourHours=read(minutes)/60;
+    const labourValue=labourHours*read(hourly);
+    const breakEven=cashCost+labourValue;
+    const profit=salePrice-breakEven;
+    const hourlyReturn=labourHours>0?(salePrice-cashCost)/labourHours:null;
+
+    output("#calcCashCost",money(cashCost));
+    output("#calcBreakEven",money(breakEven));
+    output("#calcProfit",money(profit));
+    output("#calcHourlyReturn",hourlyReturn===null?"—":`${money(hourlyReturn)}/hr`);
+
+    const profitEl=root.querySelector("#calcProfit");
+    if(profitEl){
+      profitEl.classList.toggle("positive",profit>0);
+      profitEl.classList.toggle("negative",profit<0);
+    }
+  };
+
+  root.querySelectorAll("input").forEach(input=>input.addEventListener("input",calculate));
+  reset?.addEventListener("click",()=>{
+    root.querySelectorAll("input").forEach(input=>{input.value="";});
+    calculate();
+    root.querySelector("input")?.focus();
+  });
+
+  calculate();
+}
+initProfitCalculator();
