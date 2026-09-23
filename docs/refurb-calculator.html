@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CHEAP//PC refurb profit calculator for testing the true cost of buying, upgrading and reselling used laptops in Dubbo NSW.">
+  <link rel="canonical" href="https://joshualparris.github.io/Cheappcslaptops/refurb-calculator.html">
+  <title>Refurb Profit Calculator — CHEAP//PC</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero calculator-hero">
+    <div class="wrap">
+      <div class="eyebrow">DUBBO REFURB BUSINESS TOOL</div>
+      <h1>Will this laptop flip actually <span>make money?</span></h1>
+      <p class="lede">Model the true cost before buying: acquisition, upgrades, fees, negotiation, return/failure reserve, NSW licence allocation and your time.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="./">Back to bargain board</a>
+        <a class="button ghost" href="./DUBBO-REFURB-MARKET.md">Market research</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap calculator-main">
+    <section aria-labelledby="calculator-title">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow dark">TRUE-COST MODEL</div>
+          <h2 id="calculator-title">Refurb profit calculator</h2>
+        </div>
+        <p>This is a planning tool, not a guarantee of sale price. The default licence figure is based on the 2026–27 NSW research snapshot and should be re-checked before trading.</p>
+      </div>
+
+      <form id="profitForm" class="calculator-grid">
+        <fieldset class="calc-panel">
+          <legend>Buy & prepare</legend>
+          <label>Purchase price <span>AUD</span><input name="purchasePrice" type="number" min="0" step="0.01" value="90"></label>
+          <label>Inbound freight <span>AUD</span><input name="inboundFreight" type="number" min="0" step="0.01" value="0"></label>
+          <label>RAM <span>AUD</span><input name="ram" type="number" min="0" step="0.01" value="0"></label>
+          <label>SSD <span>AUD</span><input name="ssd" type="number" min="0" step="0.01" value="0"></label>
+          <label>Battery <span>AUD</span><input name="battery" type="number" min="0" step="0.01" value="0"></label>
+          <label>Charger <span>AUD</span><input name="charger" type="number" min="0" step="0.01" value="0"></label>
+          <label>Other repairs <span>AUD</span><input name="repairs" type="number" min="0" step="0.01" value="10"></label>
+          <label>Cleaning/consumables <span>AUD</span><input name="consumables" type="number" min="0" step="0.01" value="5"></label>
+        </fieldset>
+
+        <fieldset class="calc-panel">
+          <legend>Sell & risk</legend>
+          <label>Advertised asking price <span>AUD</span><input name="askingPrice" type="number" min="0" step="0.01" value="220"></label>
+          <label>Expected negotiation <span>%</span><input name="negotiationPercent" type="number" min="0" max="99" step="0.1" value="5"></label>
+          <label>Selling/platform fees <span>%</span><input name="sellingFeePercent" type="number" min="0" max="99" step="0.1" value="0"></label>
+          <label>Failure/return reserve <span>% sale</span><input name="returnReservePercent" type="number" min="0" max="99" step="0.1" value="5"></label>
+        </fieldset>
+
+        <fieldset class="calc-panel">
+          <legend>Business overhead & time</legend>
+          <label>Annual second-hand dealer licence <span>AUD</span><input name="annualLicenceCost" type="number" min="0" step="0.01" value="692"></label>
+          <label>Expected units per year <span>units</span><input name="plannedUnits" type="number" min="1" step="1" value="20"></label>
+          <label>Your work on this machine <span>minutes</span><input name="labourMinutes" type="number" min="0" step="5" value="60"></label>
+          <label>Value of your time <span>AUD/hour</span><input name="labourRate" type="number" min="0" step="1" value="30"></label>
+        </fieldset>
+      </form>
+
+      <div id="calcError" class="calc-error" role="alert" hidden></div>
+
+      <section class="calc-results" aria-labelledby="results-title">
+        <div class="eyebrow dark">EXPECTED RESULT</div>
+        <h2 id="results-title">What the deal looks like</h2>
+        <div id="profitResults" class="profit-results" aria-live="polite"></div>
+        <div id="profitVerdict" class="profit-verdict"></div>
+      </section>
+
+      <div class="calculator-note">
+        <strong>Why both cash profit and profit after labour?</strong>
+        <p>Cash profit tells you what remains before valuing your time. Profit after labour treats your work as a real cost. If a flip only looks good when your time is worth $0, it is probably a hobby bargain rather than a strong business purchase.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <p><strong>CHEAP//PC</strong> · Dubbo NSW 2830</p>
+      <p>Planning model only. Re-check legal, tax, fee and licence settings before relying on them.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="./refurb-calculator.mjs"></script>
+</body>
+</html>
