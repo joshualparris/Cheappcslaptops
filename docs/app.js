@@ -528,6 +528,7 @@ async function renderFleetValuation(){
       <p>${escapeHtml(p.why)}</p>
     </article>`).join("");
 
+    const evidenceBackedMachines=new Set((data.evidenceAnchors||[]).map(anchor=>anchor.machine));
     const rows=[...data.machines].sort((a,b)=>b.maxPlausible-a.maxPlausible);
 
     tableEl.innerHTML=rows.map(m=>{
@@ -541,6 +542,7 @@ async function renderFleetValuation(){
         <td>${escapeHtml(m.spec)}</td>
         <td><span class="type">${escapeHtml(m.category)}</span></td>
         <td class="fleet-price"><strong>${escapeHtml(saleValueLabel(m))}</strong>${extra}</td>
+        <td><span class="valuation-evidence ${evidenceBackedMachines.has(m.name)?"anchored":"estimate"}">${evidenceBackedMachines.has(m.name)?"Evidence-backed":"Estimate"}</span></td>
         <td>${escapeHtml(m.recommendedPlatform||"—")}</td>
       </tr>`;
     }).join("");
