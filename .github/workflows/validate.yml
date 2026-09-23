@@ -7,6 +7,10 @@ on:
       - "docs/data/**"
       - "scripts/validate_data.py"
       - "scripts/validate_fleet.py"
+      - "scripts/smoke_site.py"
+      - "docs/index.html"
+      - "docs/app.js"
+      - "docs/styles.css"
       - "tests/**"
       - ".github/workflows/validate.yml"
   pull_request:
