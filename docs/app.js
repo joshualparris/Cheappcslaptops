@@ -248,3 +248,65 @@ async function init() {
 }
 
 init();
+
+
+function saleValueLabel(m){
+  if(Array.isArray(m.indicativeRange)){
+    return `${money(m.indicativeRange[0])}–${money(m.indicativeRange[1])}`;
+  }
+  return money(m.maxPlausible);
+}
+
+async function renderFleetValuation(){
+  const statsEl=document.querySelector("#fleetStats");
+  const tableEl=document.querySelector("#fleetTableBody");
+  const platformsEl=document.querySelector("#fleetPlatforms");
+  const excludedEl=document.querySelector("#fleetExcluded");
+  if(!statsEl||!tableEl||!platformsEl||!excludedEl) return;
+
+  try{
+    const response=await fetch("./data/fleet-valuations-2026-09-23.json",{cache:"no-store"});
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data=await response.json();
+    const s=data.summary;
+
+    statsEl.innerHTML=[
+      [money(s.fleetMaxCompleteSale),"upper end if sold complete"],
+      [money(s.fleetMaxOptimisedSale),"upper end with Crosshair part-out"],
+      [`${money(s.fasterSaleRange[0])}–${money(s.fasterSaleRange[1])}`,"faster-sale estimate"],
+      [s.activeMachines,"active machines valued"]
+    ].map(([value,label])=>`<div class="fleet-stat"><strong>${value}</strong><span>${label}</span></div>`).join("");
+
+    platformsEl.innerHTML=data.platformStrategy.map(p=>`<article class="market-callout">
+      <span class="award">${p.platform}</span>
+      <h3>${p.bestFor}</h3>
+      <p>${p.why}</p>
+    </article>`).join("");
+
+    const rows=[...data.machines].sort((a,b)=>{
+      if(a.category!==b.category) return a.category.localeCompare(b.category);
+      return b.maxPlausible-a.maxPlausible;
+    });
+
+    tableEl.innerHTML=rows.map(m=>{
+      const extra=m.partOutMaxPlausible
+        ? `<div class="partout">Up to ${money(m.partOutMaxPlausible)} parted</div>`
+        : "";
+      const condition=m.condition ? `<div class="row-note">${m.condition}</div>` : "";
+      return `<tr>
+        <td><strong>${m.name}</strong>${condition}</td>
+        <td>${m.spec}</td>
+        <td><span class="type">${m.category}</span></td>
+        <td class="fleet-price"><strong>${saleValueLabel(m)}</strong>${extra}</td>
+        <td>${m.recommendedPlatform||"—"}</td>
+      </tr>`;
+    }).join("");
+
+    const ex=data.notCountedInMainFleet;
+    excludedEl.innerHTML=`<strong>Not counted in the main total:</strong> ${ex.map(m=>`${m.name} (${money(m.indicativeRange[0])}–${money(m.indicativeRange[1])} as-is; ${m.reason.toLowerCase()})`).join("; ")}.`;
+  }catch(error){
+    statsEl.innerHTML=`<div class="fleet-load-error">Fleet valuation data could not be loaded. <a href="./FLEET-RESALE-VALUATION.md">Open the written report instead.</a></div>`;
+    console.error("Fleet valuation load failed",error);
+  }
+}
+renderFleetValuation();
