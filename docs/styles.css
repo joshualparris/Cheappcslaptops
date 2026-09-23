@@ -1,0 +1,84 @@
+:root{
+  --ink:#111827;--muted:#667085;--paper:#f6f7f2;--card:#fff;--line:#e4e7dc;
+  --lime:#c9ff4a;--lime-dark:#99cf1c;--dark:#142115;--soft:#eef5dc;
+  --danger:#b42318;--warn:#9a6700;--radius:22px;--shadow:0 14px 40px rgba(20,33,21,.08)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit}
+.wrap{width:min(1160px,calc(100% - 32px));margin:auto}
+.hero{background:var(--dark);color:#fff;padding:72px 0 46px;overflow:hidden;position:relative}
+.hero:after{content:"$100";position:absolute;right:-35px;top:-80px;font-size:280px;font-weight:900;letter-spacing:-.09em;color:rgba(201,255,74,.055);transform:rotate(-7deg);pointer-events:none}
+.eyebrow{font-size:.75rem;font-weight:850;letter-spacing:.14em;color:var(--lime);text-transform:uppercase}
+.eyebrow.dark{color:#587022}
+h1,h2,h3,p{margin-top:0}
+h1{max-width:880px;margin:12px 0 18px;font-size:clamp(2.7rem,7vw,6rem);line-height:.94;letter-spacing:-.055em}
+h1 span{color:var(--lime)}
+h2{font-size:clamp(1.75rem,3vw,2.7rem);line-height:1.05;letter-spacing:-.035em;margin:8px 0}
+.lede{max-width:760px;color:#d7dfd2;font-size:1.08rem}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 34px}
+.button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;border-radius:999px;padding:12px 18px;border:1px solid rgba(255,255,255,.22)}
+.button.primary{background:var(--lime);border-color:var(--lime);color:#142115}
+.button.ghost{color:#fff}
+.button:hover{transform:translateY(-1px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1}
+.stat{background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.10);border-radius:17px;padding:16px}
+.stat strong{display:block;color:var(--lime);font-size:1.6rem;letter-spacing:-.04em}
+.stat span{color:#c6d0c2;font-size:.82rem}
+section{padding:56px 0}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}
+.section-heading>p{max-width:560px;color:var(--muted);margin-bottom:4px;font-size:.9rem}
+.leader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.leader{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative;min-height:190px}
+.leader .award{display:inline-block;background:var(--soft);border-radius:999px;padding:5px 9px;font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.08em;color:#52691d}
+.leader h3{font-size:1.18rem;line-height:1.2;margin:14px 0 8px}
+.big-price{font-size:2.15rem;font-weight:900;letter-spacing:-.05em;color:#1d3316}
+.big-price small{font-size:.72rem;color:var(--muted);letter-spacing:0;font-weight:700}
+.leader p{font-size:.86rem;color:var(--muted);margin:7px 0 0}
+.deals{border-top:1px solid var(--line)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:15px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1px solid #d7dbd0;background:#fff;color:#475467;border-radius:999px;padding:9px 14px;font:inherit;font-weight:750;cursor:pointer}
+.filter.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.search input{width:min(320px,70vw);border:1px solid #d7dbd0;background:#fff;border-radius:999px;padding:10px 15px;font:inherit;outline:none}
+.search input:focus{border-color:#78932e;box-shadow:0 0 0 3px rgba(201,255,74,.25)}
+.results-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem;margin-bottom:12px}
+.deal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;min-height:350px;box-shadow:0 4px 18px rgba(20,33,21,.045)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.type{font-size:.7rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:#52691d;background:var(--soft);padding:5px 8px;border-radius:999px}
+.total{font-size:1.5rem;font-weight:900;letter-spacing:-.045em;white-space:nowrap}
+.card h3{font-size:1.05rem;line-height:1.25;margin:15px 0 7px}
+.source{font-size:.78rem;color:var(--muted);margin-bottom:15px}
+.breakdown{display:grid;grid-template-columns:1fr 1fr;background:#f7f8f4;border-radius:14px;padding:10px 12px;margin-bottom:14px}
+.breakdown div:last-child{text-align:right}
+.breakdown span{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;font-weight:750}
+.breakdown strong{font-size:.92rem}
+.specs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.spec{font-size:.75rem;background:#f1f2ef;border:1px solid #e6e8e1;border-radius:8px;padding:5px 7px}
+.note{font-size:.79rem;color:#5c6677;margin:0 0 17px}
+.card-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card-footer a{background:var(--dark);color:#fff;text-decoration:none;font-weight:800;border-radius:999px;padding:9px 13px;font-size:.82rem}
+.checked{font-size:.7rem;color:var(--muted)}
+.under-cap{color:#1f6a26}
+.rules{border-top:1px solid var(--line);display:grid;grid-template-columns:.8fr 1.2fr;gap:45px}
+.rule-copy{color:#505a68}
+.empty{padding:50px;text-align:center;color:var(--muted);border:1px dashed #cfd4c8;border-radius:var(--radius)}
+footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
+.footer-inner{display:flex;justify-content:space-between;gap:20px}
+.footer-inner p{margin:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:850px){
+  .stats,.leader-grid,.deal-grid{grid-template-columns:repeat(2,1fr)}
+  .section-heading{align-items:flex-start;flex-direction:column}
+  .rules{grid-template-columns:1fr;gap:15px}
+}
+@media(max-width:590px){
+  .hero{padding-top:50px}
+  .stats,.leader-grid,.deal-grid{grid-template-columns:1fr}
+  .toolbar{align-items:stretch;flex-direction:column}
+  .search input{width:100%}
+  .results-meta{gap:10px}
+  .footer-inner{flex-direction:column}
+}
