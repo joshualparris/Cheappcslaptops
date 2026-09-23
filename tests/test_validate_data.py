@@ -125,6 +125,15 @@ class ValidatorTests(unittest.TestCase):
         errors, _, _ = self.validate_payload(payload_with(listing))
         self.assertTrue(any("appears to be a search URL" in error for error in errors))
 
+    def test_search_fallback_cannot_be_active_listing(self):
+        listing = base_listing()
+        listing["sourceUrl"] = "https://www.ebay.com.au/sch/i.html?_nkw=test"
+        listing["urlKind"] = "search-fallback"
+        listing["availabilityStatus"] = "active"
+        listing["availabilityConfidence"] = "search-result"
+        errors, _, _ = self.validate_payload(payload_with(listing))
+        self.assertTrue(any("search-fallback records cannot be availabilityStatus='active'" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
