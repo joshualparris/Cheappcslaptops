@@ -506,6 +506,7 @@ async function renderFleetValuation(){
   const tableEl=document.querySelector("#fleetTableBody");
   const platformsEl=document.querySelector("#fleetPlatforms");
   const excludedEl=document.querySelector("#fleetExcluded");
+  const fleetEvidenceEl=document.querySelector("#fleetEvidence");
   if(!statsEl||!tableEl||!platformsEl||!excludedEl) return;
 
   try{
@@ -565,6 +566,18 @@ async function renderFleetValuation(){
 
     const ex=data.notCountedInMainFleet;
     excludedEl.innerHTML=`<strong>Not counted in the main total:</strong> ${ex.map(m=>`${escapeHtml(m.name)} (${escapeHtml(money(m.indicativeRange[0]))}–${escapeHtml(money(m.indicativeRange[1]))} as-is; ${escapeHtml(m.reason.toLowerCase())})`).join("; ")}.`;
+
+    if(fleetEvidenceEl){
+      fleetEvidenceEl.innerHTML=(data.evidenceAnchors||[]).map(anchor=>{
+        const links=(anchor.urls||[]).map((url,index)=>`<a href="${escapeHtml(safeUrl(url))}" target="_blank" rel="noreferrer">Source ${index+1} ↗</a>`).join("");
+        return `<article class="fleet-evidence-card">
+          <h4>${escapeHtml(anchor.machine)}</h4>
+          <p>${escapeHtml(anchor.observed)}</p>
+          <p class="evidence-interpretation">${escapeHtml(anchor.interpretation)}</p>
+          <div class="source-links">${links}</div>
+        </article>`;
+      }).join("");
+    }
   }catch(error){
     statsEl.innerHTML=`<div class="fleet-load-error">Fleet valuation data could not be loaded. <a href="./FLEET-RESALE-VALUATION.md">Open the written report instead.</a></div>`;
     console.error("Fleet valuation load failed",error);
