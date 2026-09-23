@@ -8,10 +8,23 @@ const labels = { desktop: "Desktop", laptop: "Laptop", part: "Part" };
 
 let deals = [];
 const validFilters = new Set(["all","desktop","laptop","part","auction"]);
+const validSortModes = new Set(["price","newest","ram"]);
 const initialParams = new URLSearchParams(window.location.search);
 let activeFilter = validFilters.has(initialParams.get("filter")) ? initialParams.get("filter") : "all";
 let query = (initialParams.get("q") || "").trim().toLowerCase();
 let selectedDealId = initialParams.get("deal") || "";
+let maxPrice = [50,75,100].includes(Number(initialParams.get("max"))) ? Number(initialParams.get("max")) : 100;
+let sortMode = validSortModes.has(initialParams.get("sort")) ? initialParams.get("sort") : "price";
+const facetState = {
+  windows: initialParams.get("windows") === "1",
+  chrome: initialParams.get("chrome") === "1",
+  otherOs: initialParams.get("other") === "1",
+  fourGb: initialParams.get("ram4") === "1",
+  solidState: initialParams.get("ssd") === "1",
+  freeShipping: initialParams.get("free") === "1",
+  direct: initialParams.get("direct") === "1",
+  fresh: initialParams.get("fresh") === "1"
+};
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -111,7 +124,11 @@ function normalise(listing) {
     availabilityConfidence: listing.availabilityConfidence,
     urlKind: listing.urlKind,
     evidenceNote: listing.evidenceNote,
-    risks: listing.risks || []
+    risks: listing.risks || [],
+    hardware: listing.hardware || {},
+    osInstalled: listing.hardware?.osInstalled || "Not stated",
+    ramGb: Number.isFinite(listing.hardware?.ramGb) ? listing.hardware.ramGb : null,
+    storage: listing.hardware?.storage || ""
   };
 }
 
@@ -195,6 +212,54 @@ function card(d) {
   </article>`;
 }
 
+function osFamily(d) {
+  const os = (d.osInstalled || "").toLowerCase();
+  if (os.startsWith("windows")) return "windows";
+  if (os.includes("chrome")) return "chrome";
+  return "other";
+}
+
+function hasSolidState(d) {
+  return /ssd|nvme|emmc|flash/i.test(d.storage || "");
+}
+
+function matchesFacets(d) {
+  if (Number.isFinite(d.total) && d.total > maxPrice) return false;
+
+  const selectedOs = [];
+  if (facetState.windows) selectedOs.push("windows");
+  if (facetState.chrome) selectedOs.push("chrome");
+  if (facetState.otherOs) selectedOs.push("other");
+  if (selectedOs.length && !selectedOs.includes(osFamily(d))) return false;
+
+  if (facetState.fourGb && !(Number.isFinite(d.ramGb) && d.ramGb >= 4)) return false;
+  if (facetState.solidState && !hasSolidState(d)) return false;
+  if (facetState.freeShipping && d.shipping !== 0) return false;
+  if (facetState.direct && d.urlKind !== "direct-listing") return false;
+  if (facetState.fresh && freshnessFor(d.checkedRaw, d.availabilityStatus).key !== "fresh") return false;
+
+  return true;
+}
+
+function sortDeals(items) {
+  return [...items].sort((a, b) => {
+    if (sortMode === "newest") {
+      const dateDiff = String(b.checkedRaw || "").localeCompare(String(a.checkedRaw || ""));
+      return dateDiff || a.total - b.total;
+    }
+    if (sortMode === "ram") {
+      const aRam = Number.isFinite(a.ramGb) ? a.ramGb : -1;
+      const bRam = Number.isFinite(b.ramGb) ? b.ramGb : -1;
+      return bRam - aRam || a.total - b.total;
+    }
+    return a.total - b.total;
+  });
+}
+
+function activeFacetCount() {
+  return Object.values(facetState).filter(Boolean).length + (maxPrice !== 100 ? 1 : 0) + (sortMode !== "price" ? 1 : 0);
+}
+
 function matchesFilter(d) {
   if (activeFilter === "auction") return d.buyingMode === "auction";
   if (d.buyingMode === "auction") return false;
@@ -209,6 +274,27 @@ function syncUrlState() {
   else params.delete("q");
   if (selectedDealId) params.set("deal", selectedDealId);
   else params.delete("deal");
+
+  if (maxPrice !== 100) params.set("max", String(maxPrice));
+  else params.delete("max");
+  if (sortMode !== "price") params.set("sort", sortMode);
+  else params.delete("sort");
+
+  const facetParams = {
+    windows: "windows",
+    chrome: "chrome",
+    otherOs: "other",
+    fourGb: "ram4",
+    solidState: "ssd",
+    freeShipping: "free",
+    direct: "direct",
+    fresh: "fresh"
+  };
+  Object.entries(facetParams).forEach(([key, param]) => {
+    if (facetState[key]) params.set(param, "1");
+    else params.delete(param);
+  });
+
   const next = `${window.location.pathname}${params.toString() ? `?${params}` : ""}${window.location.hash}`;
   window.history.replaceState(null, "", next);
 }
@@ -290,37 +376,91 @@ function renderDealDetail() {
 }
 
 function render() {
-  const filtered = deals
-    .filter(matchesFilter)
-    .filter(d => !query || [d.title, d.seller, ...d.specs, d.note, d.evidenceNote, ...d.risks]
-      .join(" ")
-      .toLowerCase()
-      .includes(query))
-    .sort((a, b) => a.total - b.total);
+  const filtered = sortDeals(
+    deals
+      .filter(matchesFilter)
+      .filter(matchesFacets)
+      .filter(d => !query || [d.title, d.seller, ...d.specs, d.note, d.evidenceNote, ...d.risks]
+        .join(" ")
+        .toLowerCase()
+        .includes(query))
+  );
 
   document.querySelector("#dealGrid").innerHTML = filtered.map(card).join("");
   const noun = activeFilter === "auction" ? "auction watch" : "deal";
   document.querySelector("#resultCount").textContent =
     `${filtered.length} ${noun}${filtered.length === 1 ? "" : "s"} shown`;
-  document.querySelector("#sortLabel").textContent =
-    activeFilter === "auction" ? "Sorted by observed bid + shown delivery" : "Sorted by delivered price";
+
+  const sortLabels = {
+    price: activeFilter === "auction" ? "Observed price low → high" : "Delivered price low → high",
+    newest: "Most recently checked",
+    ram: "Most RAM first"
+  };
+  document.querySelector("#sortLabel").textContent = sortLabels[sortMode] || sortLabels.price;
+
+  const count = activeFacetCount();
+  const activeCount = document.querySelector("#activeFilterCount");
+  if (activeCount) activeCount.textContent = count ? `${count} extra filter${count === 1 ? "" : "s"} active` : "No extra filters";
+
   document.querySelector("#empty").hidden = filtered.length !== 0;
   renderDealDetail();
   setActiveFilterButton();
+  document.querySelectorAll("[data-toggle]").forEach(button => {
+    const active = Boolean(facetState[button.dataset.toggle]);
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   syncUrlState();
 }
 
 function bindControls() {
   const search = document.querySelector("#search");
+  const maxPriceSelect = document.querySelector("#maxPrice");
+  const sortSelect = document.querySelector("#sortMode");
+  const clearButton = document.querySelector("#clearFilters");
+
   search.value = query;
+  if (maxPriceSelect) maxPriceSelect.value = String(maxPrice);
+  if (sortSelect) sortSelect.value = sortMode;
 
   document.querySelectorAll(".filter").forEach(btn => btn.addEventListener("click", () => {
     activeFilter = btn.dataset.filter;
     render();
   }));
 
+  document.querySelectorAll("[data-toggle]").forEach(btn => btn.addEventListener("click", () => {
+    const key = btn.dataset.toggle;
+    if (Object.prototype.hasOwnProperty.call(facetState, key)) {
+      facetState[key] = !facetState[key];
+      render();
+    }
+  }));
+
   search.addEventListener("input", event => {
     query = event.target.value.trim().toLowerCase();
+    render();
+  });
+
+  maxPriceSelect?.addEventListener("change", event => {
+    maxPrice = Number(event.target.value) || 100;
+    render();
+  });
+
+  sortSelect?.addEventListener("change", event => {
+    sortMode = validSortModes.has(event.target.value) ? event.target.value : "price";
+    render();
+  });
+
+  clearButton?.addEventListener("click", () => {
+    activeFilter = "all";
+    query = "";
+    selectedDealId = "";
+    maxPrice = 100;
+    sortMode = "price";
+    Object.keys(facetState).forEach(key => { facetState[key] = false; });
+    search.value = "";
+    if (maxPriceSelect) maxPriceSelect.value = "100";
+    if (sortSelect) sortSelect.value = "price";
     render();
   });
 
@@ -337,8 +477,8 @@ async function init() {
 
     renderStats(payload);
     renderLeaders();
-    render();
     bindControls();
+    render();
   } catch (error) {
     console.error("Failed to load canonical listing data", error);
     document.querySelector("#stats").innerHTML =
