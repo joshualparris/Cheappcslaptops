@@ -1204,7 +1204,40 @@
         "Only 4GB RAM as listed",
         "Intel Core i3-6100U is not on Microsoft's normal officially supported Windows 11 CPU list",
         "Used-condition battery health and charger inclusion should be confirmed from the full listing before purchase"
-      ]
+      ],
+      "marketComparables": [
+        {
+          "title": "HP ProBook 11 G2 · i3-6100U · 8GB · 128GB SSD",
+          "askingPriceAud": 115.58,
+          "sourceUrl": "https://www.ebay.com.au/itm/398093417023",
+          "note": "Used; current eBay Australia comparable."
+        },
+        {
+          "title": "HP ProBook 11 G2 · i3-6100U · 4GB · 128GB SSD",
+          "askingPriceAud": 115,
+          "sourceUrl": "https://www.ebay.com.au/itm/117383825686",
+          "note": "Used; Central Coast Power PC."
+        },
+        {
+          "title": "HP ProBook 11 G2 · i3-6100U · 4GB · 128GB SSD",
+          "askingPriceAud": 125,
+          "sourceUrl": "https://www.ebay.com.au/itm/127790826099",
+          "note": "Used; Central Coast Power PC."
+        },
+        {
+          "title": "HP ProBook 11 G2 · i3-6100U · 4GB · 128GB SSD",
+          "askingPriceAud": 139,
+          "sourceUrl": "https://www.ebay.com.au/itm/127940742030",
+          "note": "Used; Central Coast Power PC."
+        },
+        {
+          "title": "HP ProBook 11 G2 · i3-6100U · 8GB · 128GB SSD",
+          "askingPriceAud": 185,
+          "sourceUrl": "https://www.ebay.com.au/itm/117267303202",
+          "note": "Used; Central Coast Power PC."
+        }
+      ],
+      "comparisonNote": "The AU $89 delivered listing is materially cheaper than several other current HP ProBook 11 G2 asking prices. Comparable listings are asking roughly AU $115–$185 before any delivery differences."
     }
   ]
 }
