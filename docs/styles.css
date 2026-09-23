@@ -328,3 +328,18 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
   font-size:.76rem;
   font-weight:800
 }
+
+
+.source-unavailable{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:8px 12px;
+  border:1px dashed #c9cec3;
+  border-radius:999px;
+  color:#667085;
+  background:#f7f8f4;
+  font-size:.76rem;
+  font-weight:800
+}
