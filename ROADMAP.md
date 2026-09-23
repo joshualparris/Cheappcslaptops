@@ -114,6 +114,77 @@ The project should eventually answer, with current evidence:
 
 ---
 
+# Implementation progress
+
+This roadmap is being implemented as small, reviewable commits. Status below reflects `main` on 23 September 2026.
+
+## Completed foundation
+
+- ✅ **Canonical listing data** — `docs/data/listings.json` is now the website's listing source of truth.
+- ✅ **Deterministic validator** — cost arithmetic, budget boundaries, enums, auction semantics, shipping consistency, dates, URLs and duplicate IDs are checked before publication.
+- ✅ **Boundary tests** — `$100.00` is valid, `$100.01` is not; auction/watch, unknown shipping, duplicate IDs and direct/search URL rules are covered.
+- ✅ **Validation CI** — tests and current data validation run automatically.
+- ✅ **Honest freshness/evidence UI** — cards expose age, shipping confidence and direct-listing vs search-fallback evidence.
+- ✅ **Static-snapshot wording** — the site no longer describes manually researched listings as live inventory.
+- ✅ **Pages deployment hardening** — validation runs before publish, actions are SHA-pinned, stale deploys are cancelled, and the site is successfully published at:
+  - https://joshualparris.github.io/Cheappcslaptops/
+- ✅ **Source/provenance policy** — `docs/SOURCE-STRATEGY.md` documents API/feed/manual modes, eBay production-access gating and restricted-marketplace handling.
+- ✅ **Website specification corrected** — eBay Browse API is no longer assumed to be automatically available in production.
+- ✅ **Reproducible PDF CI** — pinned action SHAs, pinned ReportLab version, validation gate and concurrency control.
+- ✅ **Canonical PDF shortlist** — generated report prices, shipping, hardware and listing URLs now come from `docs/data/listings.json`.
+- ✅ **README entry point** — live site, roadmap, source policy, market research and fleet valuation are obvious from the repository root.
+
+## Completed/advanced site quality work
+
+- ✅ **Auction-watch view** — auction observations are separated from confirmed fixed-price deals.
+- ✅ **Shareable filter state** — deal filters persist in the URL.
+- ✅ **Canonical/social metadata** — basic canonical + social metadata added.
+- ✅ **robots.txt + sitemap.xml** added.
+- ✅ **Static-site smoke checks** — Pages deployment is gated on basic site/data integrity checks.
+- ✅ **Fleet valuation validation** — fleet totals/data are checked in CI.
+- ✅ **Safer dynamic rendering** — fleet data is escaped before HTML rendering.
+- 🟡 **Accessibility** — visible focus, reduced-motion handling, text-labelled evidence states and live filter result counts are implemented; a fuller WCAG 2.2 audit remains.
+- 🟡 **Separate evidence views** — auctions are separated; shipping-unverified, refurb-candidate and sold/gone history views remain.
+
+## Still high priority
+
+- ⬜ **Automated authorised discovery/refresh** — no source currently provides a true continuously refreshed inventory feed.
+- ⬜ **eBay production-access decision** — confirm/apply for Buy API production eligibility before building the collector.
+- ⬜ **Immutable listing history** — price/shipping/status snapshots over time.
+- ⬜ **Shareable listing detail pages** with evidence history.
+- ⬜ **Deterministic compatibility engine** and build combiner.
+- ⬜ **Hardware reference dataset** with provenance for CPU/GPU/chassis/PSU/Windows support.
+- ⬜ **Refurb profit calculator** including licence allocation, labour and failure/return reserve.
+- ⬜ **Standard refurb QA checklist** and measured Dubbo demand experiment.
+- ⬜ **Compliance pack** covering dated NSW/ACL/electrical/tax obligations.
+- ⬜ **Source health/observability dashboard**.
+- ⬜ **Full report/data consolidation** — benchmark and market-comparison evidence still has some dated snapshot content outside the canonical listing dataset.
+
+## Micro-commit ledger
+
+Key roadmap commits so far:
+
+| Commit | Change |
+| --- | --- |
+| `bd781197` | Roadmap and full-repo audit |
+| `927db998` | Canonical listing snapshot |
+| `41e8dc67` | Listing validator |
+| `ffd0462e` | Validation CI |
+| `a3fd80bb` | Website reads canonical listing data |
+| `11c80264` | Evidence/freshness UI |
+| `7a526468` | Evidence styling, keyboard focus, reduced motion |
+| `097e9f77` | Honest snapshot wording + live result announcements |
+| `6aead727` | Hardened Pages deployment |
+| `9c95fbe3` | Source/provenance strategy |
+| `70a62b90` | eBay production-access gate in website spec |
+| `cb6bcf4b` | Reproducible validated PDF workflow |
+| `30a0c5b7` | Validator boundary tests |
+| `54e56501` | Boundary tests in CI |
+| `fce9cae5` | README navigation/live-site links |
+| `634398f5` | PDF listing facts sourced from canonical JSON |
+
+Additional small commits on `main` have implemented fleet valuation, auction filtering, URL filter state, fleet validation, SEO metadata, robots/sitemap and site smoke checks.
+
 # Roadmap
 
 ## P0 — Trustworthy foundation
@@ -496,16 +567,18 @@ Move deeper material into:
 
 # Immediate implementation order
 
-The first working tranche will be deliberately small commits:
+The first working tranche is now complete:
 
-1. **Roadmap** — this file.
-2. **Canonical data** — move site listings into a structured JSON file.
-3. **Validator** — add deterministic budget/data checks.
-4. **CI validation** — run validator on pushes/PRs.
-5. **Evidence UX** — show status, shipping confidence and freshness on cards.
-6. **Pages workflow repair** — remove unsupported auto-enablement and gate deploy on validation.
-7. **Source strategy correction** — document eBay production-access constraint and fallback approach.
-8. **PDF deduplication prep** — begin moving report facts toward canonical structured data.
+1. ✅ **Roadmap** — this file.
+2. ✅ **Canonical data** — site listings live in structured JSON.
+3. ✅ **Validator** — deterministic budget/data checks.
+4. ✅ **CI validation** — validator + boundary tests on pushes/PRs.
+5. ✅ **Evidence UX** — status, shipping confidence and freshness on cards.
+6. ✅ **Pages workflow repair** — deploy is validation-gated and live.
+7. ✅ **Source strategy correction** — eBay production-access constraint and fallbacks documented.
+8. ✅ **PDF deduplication** — shortlist listing facts now come from canonical data.
+
+The next tranche should prioritise immutable history, shareable listing details, compatibility rules and the refurb profit/QA tooling before attempting broad source automation.
 
 Each commit should do one job and leave the repository in a reviewable state.
 
