@@ -135,5 +135,13 @@ class ValidatorTests(unittest.TestCase):
         self.assertTrue(any("search-fallback records cannot be availabilityStatus='active'" in error for error in errors))
 
 
+    def test_active_direct_listing_requires_verified_availability(self):
+        listing = base_listing()
+        listing["availabilityStatus"] = "active"
+        listing["availabilityConfidence"] = "observed-listing"
+        errors, _, _ = self.validate_payload(payload_with(listing))
+        self.assertTrue(any("active direct listings must have availabilityConfidence='verified'" in error for error in errors))
+
+
 if __name__ == "__main__":
     unittest.main()
