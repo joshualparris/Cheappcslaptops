@@ -60,6 +60,7 @@ function freshnessFor(value, status) {
   if (status === "gone") return { key: "gone", label: "Gone" };
   if (status === "watch") return { key: "watch", label: "Watch only" };
   if (status === "stale") return { key: "stale", label: "Stale" };
+  if (status === "unknown") return { key: "unknown", label: "Unverified" };
 
   const checked = new Date(`${value}T00:00:00Z`);
   if (Number.isNaN(checked.getTime())) return { key: "unknown", label: "Age unknown" };
