@@ -188,6 +188,8 @@ def validate_listing(
         if status == "active":
             errors.append(f"{prefix}: search-fallback records cannot be availabilityStatus='active'")
         warnings.append(f"{prefix}: search-fallback evidence is a research lead, not a verified current listing")
+    if url_kind == "direct-listing" and status == "active" and listing.get("availabilityConfidence") != "verified":
+        errors.append(f"{prefix}: active direct listings must have availabilityConfidence='verified'")
 
     first_seen = parse_iso_date(listing.get("firstSeenAt"), f"{prefix}.firstSeenAt", errors)
     last_checked = parse_iso_date(listing.get("lastCheckedAt"), f"{prefix}.lastCheckedAt", errors)
