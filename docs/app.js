@@ -11,6 +11,7 @@ const validFilters = new Set(["all","desktop","laptop","part","auction"]);
 const initialParams = new URLSearchParams(window.location.search);
 let activeFilter = validFilters.has(initialParams.get("filter")) ? initialParams.get("filter") : "all";
 let query = (initialParams.get("q") || "").trim().toLowerCase();
+let selectedDealId = initialParams.get("deal") || "";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -189,7 +190,7 @@ function card(d) {
 
     <div class="card-footer">
       <span class="checked">Checked ${escapeHtml(d.checked)}</span>
-      <a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open source ↗</a>
+      <div class="card-actions"><a class="details-link" href="?deal=${encodeURIComponent(d.id)}#deals">Details</a><a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open source ↗</a></div>
     </div>
   </article>`;
 }
@@ -206,6 +207,8 @@ function syncUrlState() {
   else params.set("filter", activeFilter);
   if (query) params.set("q", query);
   else params.delete("q");
+  if (selectedDealId) params.set("deal", selectedDealId);
+  else params.delete("deal");
   const next = `${window.location.pathname}${params.toString() ? `?${params}` : ""}${window.location.hash}`;
   window.history.replaceState(null, "", next);
 }
@@ -215,6 +218,74 @@ function setActiveFilterButton() {
     const active = button.dataset.filter === activeFilter;
     button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function renderDealDetail() {
+  const panel = document.querySelector("#dealDetail");
+  if (!panel) return;
+
+  const deal = selectedDealId ? deals.find(item => item.id === selectedDealId) : null;
+  if (!deal) {
+    panel.hidden = true;
+    panel.innerHTML = "";
+    return;
+  }
+
+  const freshness = freshnessFor(deal.checkedRaw, deal.availabilityStatus);
+  const risks = deal.risks.length
+    ? `<ul>${deal.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
+    : "<p>No additional risks recorded.</p>";
+
+  panel.hidden = false;
+  panel.innerHTML = `
+    <div class="deal-detail-head">
+      <div>
+        <div class="eyebrow dark">SHAREABLE LISTING DETAIL</div>
+        <h3>${escapeHtml(deal.title)}</h3>
+        <p>${escapeHtml(deal.seller)}</p>
+      </div>
+      <button type="button" class="detail-close" id="detailClose">Close</button>
+    </div>
+    <div class="deal-detail-price">${escapeHtml(money(deal.total))} <span>recorded all-in total</span></div>
+    <div class="evidence-row">
+      <span class="evidence-tag evidence-${escapeHtml(freshness.key)}">${escapeHtml(freshness.label)}</span>
+      <span class="evidence-tag">${escapeHtml(shippingLabel(deal.shippingConfidence))}</span>
+      <span class="evidence-tag">${escapeHtml(evidenceLabel(deal.urlKind))}</span>
+      <span class="evidence-tag">${escapeHtml(deal.buyingMode === "auction" ? "Auction/watch" : "Fixed price")}</span>
+    </div>
+    <div class="deal-detail-grid">
+      <div><span>Item</span><strong>${escapeHtml(money(deal.item))}</strong></div>
+      <div><span>Shipping shown</span><strong>${escapeHtml(deal.shipping === 0 ? "FREE" : money(deal.shipping))}</strong></div>
+      <div><span>Last checked</span><strong>${escapeHtml(deal.checked)}</strong></div>
+      <div><span>Availability</span><strong>${escapeHtml(deal.availabilityStatus)}</strong></div>
+    </div>
+    <div class="specs">${deal.specs.map(s => `<span class="spec">${escapeHtml(s)}</span>`).join("")}</div>
+    <p class="note"><strong>Evidence:</strong> ${escapeHtml(deal.evidenceNote)}</p>
+    <div class="detail-risks"><strong>Risks / caveats</strong>${risks}</div>
+    <div class="deal-detail-actions">
+      <a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open source ↗</a>
+      <button type="button" class="copy-link-button" id="copyDealLink">Copy share link</button>
+    </div>
+  `;
+
+  panel.querySelector("#detailClose")?.addEventListener("click", () => {
+    selectedDealId = "";
+    renderDealDetail();
+    syncUrlState();
+  });
+
+  panel.querySelector("#copyDealLink")?.addEventListener("click", async event => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("deal", deal.id);
+    url.hash = "deals";
+    try {
+      await navigator.clipboard.writeText(url.href);
+      event.currentTarget.textContent = "Copied";
+      window.setTimeout(() => { event.currentTarget.textContent = "Copy share link"; }, 1400);
+    } catch {
+      window.prompt("Copy this link:", url.href);
+    }
   });
 }
 
@@ -234,6 +305,7 @@ function render() {
   document.querySelector("#sortLabel").textContent =
     activeFilter === "auction" ? "Sorted by observed bid + shown delivery" : "Sorted by delivered price";
   document.querySelector("#empty").hidden = filtered.length !== 0;
+  renderDealDetail();
   setActiveFilterButton();
   syncUrlState();
 }
