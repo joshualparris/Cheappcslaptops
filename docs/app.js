@@ -7,7 +7,7 @@ const money = n => new Intl.NumberFormat("en-AU", {
 const labels = { desktop: "Desktop", laptop: "Laptop", part: "Part" };
 
 let deals = [];
-const validFilters = new Set(["all","desktop","laptop","part","auction"]);
+const validFilters = new Set(["all","desktop","laptop","part","auction","research"]);
 const validSortModes = new Set(["price","newest","ram"]);
 const initialParams = new URLSearchParams(window.location.search);
 let activeFilter = validFilters.has(initialParams.get("filter")) ? initialParams.get("filter") : "all";
@@ -134,28 +134,40 @@ function normalise(listing) {
   };
 }
 
+function isActionableDeal(d) {
+  return d.buyingMode !== "auction" &&
+    d.urlKind === "direct-listing" &&
+    d.availabilityStatus === "active";
+}
+
+function isResearchLead(d) {
+  return d.buyingMode !== "auction" && !isActionableDeal(d);
+}
+
 function renderStats(payload) {
   const stats = document.querySelector("#stats");
-  const systems = deals.filter(d => d.type !== "part");
-  const parts = deals.filter(d => d.type === "part");
+  const actionable = deals.filter(isActionableDeal);
+  const systems = actionable.filter(d => d.type !== "part");
+  const researchLeads = deals.filter(isResearchLead);
   const totals = systems.map(d => d.total).filter(Number.isFinite);
   const cheapestSystem = totals.length ? Math.min(...totals) : null;
 
   stats.innerHTML = [
     [money(payload.challenge.budgetAud), "hard system cap"],
-    [systems.length, "fixed-price systems"],
-    [cheapestSystem === null ? "—" : money(cheapestSystem), "cheapest system"],
-    [parts.length, "parts leads"]
+    [systems.length, "direct active systems"],
+    [cheapestSystem === null ? "—" : money(cheapestSystem), "cheapest direct system"],
+    [researchLeads.length, "unverified research leads"]
   ].map(([value, label]) =>
     `<div class="stat"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`
   ).join("");
 }
 
 function renderLeaders() {
-  const leaderIds = ["hp-prodesk-600-g1", "dell-optiplex-9020-i7", "hp-t630"];
-  const leaders = leaderIds
-    .map(id => deals.find(item => item.id === id))
-    .filter(Boolean);
+  const leaders = deals
+    .filter(isActionableDeal)
+    .filter(item => item.type !== "part")
+    .sort((a, b) => a.total - b.total)
+    .slice(0, 3);
 
   document.querySelector("#leaders").innerHTML = leaders.map(d => {
     const freshness = freshnessFor(d.checkedRaw, d.availabilityStatus);
@@ -176,6 +188,12 @@ function renderLeaders() {
 function card(d) {
   const shipping = d.shipping === 0 ? "FREE" : money(d.shipping);
   const freshness = freshnessFor(d.checkedRaw, d.availabilityStatus);
+  const actionable = isActionableDeal(d);
+  const sourceAction = d.urlKind === "direct-listing" ? "Open listing ↗" : "Search eBay ↗";
+  const leadWarning = actionable ? "" : `
+    <div class="research-lead-warning">
+      Research lead only — this is not a verified current direct listing.
+    </div>`;
   const riskList = d.risks.length
     ? `<ul>${d.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
     : "<p>No additional risks recorded.</p>";
@@ -200,6 +218,7 @@ function card(d) {
     </div>
     <div class="specs">${d.specs.map(s => `<span class="spec">${escapeHtml(s)}</span>`).join("")}</div>
     <p class="note">${escapeHtml(d.note)}</p>
+    ${leadWarning}
 
     <details class="evidence-details">
       <summary>Evidence & risks</summary>
@@ -209,7 +228,7 @@ function card(d) {
 
     <div class="card-footer">
       <span class="checked">Checked ${escapeHtml(d.checked)}</span>
-      <div class="card-actions"><a class="details-link" href="?deal=${encodeURIComponent(d.id)}#deals">Details</a><a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open source ↗</a></div>
+      <div class="card-actions"><a class="details-link" href="?deal=${encodeURIComponent(d.id)}#deals">Details</a><a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">${escapeHtml(sourceAction)}</a></div>
     </div>
   </article>`;
 }
@@ -264,7 +283,8 @@ function activeFacetCount() {
 
 function matchesFilter(d) {
   if (activeFilter === "auction") return d.buyingMode === "auction";
-  if (d.buyingMode === "auction") return false;
+  if (activeFilter === "research") return isResearchLead(d);
+  if (!isActionableDeal(d)) return false;
   return activeFilter === "all" || d.type === activeFilter;
 }
 
@@ -366,7 +386,7 @@ function renderDealDetail() {
     <div class="detail-risks"><strong>Risks / caveats</strong>${risks}</div>
     ${comparableBlock}
     <div class="deal-detail-actions">
-      <a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open source ↗</a>
+      <a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">${escapeHtml(deal.urlKind === "direct-listing" ? "Open listing ↗" : "Search source ↗")}</a>
       <button type="button" class="copy-link-button" id="copyDealLink">Copy share link</button>
     </div>
   `;
@@ -403,12 +423,12 @@ function render() {
   );
 
   document.querySelector("#dealGrid").innerHTML = filtered.map(card).join("");
-  const noun = activeFilter === "auction" ? "auction watch" : "deal";
+  const noun = activeFilter === "auction" ? "auction watch" : activeFilter === "research" ? "research lead" : "deal";
   document.querySelector("#resultCount").textContent =
     `${filtered.length} ${noun}${filtered.length === 1 ? "" : "s"} shown`;
 
   const sortLabels = {
-    price: activeFilter === "auction" ? "Observed price low → high" : "Delivered price low → high",
+    price: activeFilter === "auction" ? "Observed price low → high" : activeFilter === "research" ? "Recorded price low → high" : "Delivered price low → high",
     newest: "Most recently checked",
     ram: "Most RAM first"
   };
