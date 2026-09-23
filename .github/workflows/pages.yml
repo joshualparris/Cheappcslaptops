@@ -6,6 +6,7 @@ on:
     paths:
       - "docs/**"
       - "scripts/validate_data.py"
+      - "scripts/validate_fleet.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -30,6 +31,9 @@ jobs:
 
       - name: Validate canonical listing data
         run: python3 scripts/validate_data.py
+
+      - name: Validate fleet valuation data
+        run: python3 scripts/validate_fleet.py
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
