@@ -111,3 +111,19 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
   .footer-inner{flex-direction:column}
   .margin-box,.market-panel,.legal-panel,.test-plan{padding:20px}
 }
+
+/* Evidence, freshness and accessibility */
+:focus-visible{outline:3px solid #6f8f1f;outline-offset:3px}
+.leader-badges,.evidence-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.evidence-row{margin:-4px 0 14px}
+.evidence-tag{display:inline-flex;align-items:center;min-height:25px;border:1px solid #d8ddd1;background:#f7f8f4;color:#4b5563;border-radius:999px;padding:4px 8px;font-size:.68rem;font-weight:800;letter-spacing:.02em}
+.evidence-fresh{background:#e9f7e8;border-color:#bddfba;color:#245b29}
+.evidence-aging{background:#fff6d9;border-color:#ebd88e;color:#755a00}
+.evidence-stale,.evidence-gone,.evidence-sold{background:#fff0ee;border-color:#efc2bc;color:#8b2d23}
+.evidence-watch,.evidence-unknown{background:#f2efff;border-color:#d8cff8;color:#55408d}
+.evidence-details{margin:0 0 16px;border-top:1px solid #eceee8;border-bottom:1px solid #eceee8;padding:9px 0;font-size:.78rem;color:#566052}
+.evidence-details summary{cursor:pointer;font-weight:800;color:#344054}
+.evidence-details p{margin:9px 0}
+.evidence-details ul{margin:8px 0 2px;padding-left:19px}
+.evidence-details li+li{margin-top:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button:hover{transform:none}}
