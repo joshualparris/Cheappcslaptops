@@ -676,8 +676,8 @@
       "requiredPartsAud": 0,
       "allInAud": 73.36,
       "shippingConfidence": "advertised",
-      "availabilityStatus": "unknown",
-      "availabilityConfidence": "search-result",
+      "availabilityStatus": "gone",
+      "availabilityConfidence": "verified",
       "firstSeenAt": "2026-09-23",
       "lastCheckedAt": "2026-09-23",
       "award": "Best cheap Windows-class hardware lead",
@@ -690,14 +690,15 @@
         "osInstalled": "Not stated",
         "osSupport": "not-assessed"
       },
-      "evidenceNote": "Current eBay Australia result showed AU $53.36 plus AU $20 postage. The listing title says 'Read Ad'; postcode-2830 checkout was not transactionally verified.",
+      "evidenceNote": "Search-only research lead. Re-checked on 23 September 2026 after the site link was opened on eBay Australia; the saved query returned 0 results / no exact matches, so this lead is no longer current.",
       "note": "Strong CPU/RAM/storage quantity for AU $73.36 shown delivered, but the seller explicitly flags the listing to read the description before buying.",
       "risks": [
         "Listing title says 'Read Ad'; check description carefully for faults, omissions or condition limits",
         "Older 5th-gen Intel platform",
         "Mechanical HDD rather than SSD",
         "Operating system not stated",
-        "Search URL may surface a different item later"
+        "Search URL may surface a different item later",
+        "The eBay search query currently returns no matching listing"
       ]
     },
     {
