@@ -51,6 +51,7 @@
           <button class="filter" data-filter="desktop">Desktops</button>
           <button class="filter" data-filter="laptop">Laptops</button>
           <button class="filter" data-filter="part">Parts</button>
+          <button class="filter" data-filter="auction">Auction watches</button>
         </div>
         <label class="search">
           <span class="sr-only">Search deals</span>
@@ -58,7 +59,8 @@
         </label>
       </div>
 
-      <div class="results-meta"><span id="resultCount" role="status" aria-live="polite"></span><span>Sorted by delivered price</span></div>
+      <div class="results-meta"><span id="resultCount" role="status" aria-live="polite"></span><span id="sortLabel">Sorted by delivered price</span></div>
+      <p class="filter-note">The default view excludes auctions because the observed bid is not a guaranteed purchase price. Use <strong>Auction watches</strong> to inspect them separately.</p>
       <div class="deal-grid" id="dealGrid"></div>
       <div class="empty" id="empty" hidden>No matching deals.</div>
     </section>
