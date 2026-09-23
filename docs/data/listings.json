@@ -972,6 +972,45 @@
       ]
     },
     {
+      "id": "lenovo-ideapad-s10e-xp-retro",
+      "kind": "laptop",
+      "listingClass": "complete-system",
+      "buyingMode": "fixed-price",
+      "title": "Lenovo IdeaPad S10e Retro Netbook",
+      "seller": "scorp4711",
+      "source": "eBay Australia",
+      "sourceUrl": "https://www.ebay.com.au/sch/i.html?_nkw=Lenovo+Ideapad+S10e+XP+Pro+Laptop+160GB+Retro+Games",
+      "urlKind": "search-fallback",
+      "itemPriceAud": 79,
+      "shippingAud": 0,
+      "mandatoryFeesAud": 0,
+      "requiredPartsAud": 0,
+      "allInAud": 79,
+      "shippingConfidence": "advertised",
+      "availabilityStatus": "unknown",
+      "availabilityConfidence": "search-result",
+      "firstSeenAt": "2026-09-23",
+      "lastCheckedAt": "2026-09-23",
+      "award": "Retro laptop",
+      "hardware": {
+        "cpu": null,
+        "gpu": null,
+        "ramGb": null,
+        "storage": "160GB external storage listed",
+        "formFactor": "Netbook",
+        "osInstalled": "Windows XP Pro",
+        "osSupport": "unsupported-unverified"
+      },
+      "evidenceNote": "Current eBay Australia result showed AU $79 Buy It Now with free delivery and described a Lenovo IdeaPad S10e XP Pro laptop with 160GB external storage. Postcode-2830 checkout was not transactionally verified.",
+      "note": "A niche retro-computing option rather than a safe modern everyday web laptop. Included because it is a complete working-class portable under the hard delivered-price cap.",
+      "risks": [
+        "Windows XP is obsolete and unsuitable for normal secure internet use",
+        "Very old netbook-class hardware",
+        "RAM and internal storage details were not stated in the surfaced result",
+        "Search URL may surface a different item later"
+      ]
+    },
+    {
       "id": "micron-8gb-ddr3",
       "kind": "part",
       "listingClass": "component",
