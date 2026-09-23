@@ -173,3 +173,32 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
 .fleet-result-count{font-size:.76rem;color:var(--muted);min-width:135px;text-align:right}
 .fleet-row[hidden]{display:none}
 @media(max-width:590px){.fleet-controls{align-items:stretch;flex-direction:column}.fleet-controls .search{margin-right:0}.fleet-select{justify-content:space-between}.fleet-select select{flex:1}.fleet-result-count{text-align:left}}
+
+
+/* Refurb profit calculator */
+.calculator-hero h1{max-width:980px}
+.calculator-main{max-width:1160px}
+.calculator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.calc-panel{margin:0;border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:#fff;min-width:0}
+.calc-panel legend{font-weight:900;font-size:1.03rem;padding:0 6px;color:#25331f}
+.calc-panel label{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:end;font-size:.82rem;font-weight:750;color:#475467;margin:12px 0}
+.calc-panel label span{font-size:.7rem;font-weight:700;color:var(--muted)}
+.calc-panel input{grid-column:1/-1;width:100%;border:1px solid #d7dbd0;border-radius:11px;padding:10px 11px;font:inherit;background:#fbfcf9;color:var(--ink)}
+.calc-panel input:focus{border-color:#78932e;box-shadow:0 0 0 3px rgba(201,255,74,.25);outline:none}
+.calc-results{padding-top:34px}
+.profit-results{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.profit-result{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}
+.profit-result span,.profit-result small{display:block;color:var(--muted);font-size:.7rem;line-height:1.25}
+.profit-result strong{display:block;font-size:1.35rem;letter-spacing:-.04em;margin:5px 0;color:#1d3316;overflow-wrap:anywhere}
+.profit-verdict{margin-top:14px;border-radius:18px;padding:18px 20px;border:1px solid var(--line);background:#fff}
+.profit-verdict strong{font-size:1.15rem}
+.profit-verdict p{margin:4px 0 0;color:#566052}
+.profit-verdict[data-state="good"]{background:#e9f7e8;border-color:#bddfba}
+.profit-verdict[data-state="caution"]{background:#fff6d9;border-color:#ebd88e}
+.profit-verdict[data-state="weak"]{background:#fff0ee;border-color:#efc2bc}
+.calc-error{margin-top:14px;background:#fff0ee;border:1px solid #efc2bc;color:#8b2d23;border-radius:14px;padding:12px 14px;font-weight:750}
+.calculator-note{margin-top:16px;background:#eef5dc;border:1px solid #dbe8bd;border-radius:18px;padding:18px 20px}
+.calculator-note p{margin:5px 0 0;color:#566052}
+@media(max-width:1000px){.profit-results{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:850px){.calculator-grid{grid-template-columns:1fr}.profit-results{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.profit-results{grid-template-columns:1fr}.calc-panel{padding:16px}}
