@@ -6,6 +6,10 @@ A live Australian bargain-finder for **ultra-budget PCs, laptops and parts**, st
 
 The long-term goal is a website that continuously discovers current listings, normalises the real delivered cost, estimates hardware capability, filters out misleading/incompatible bargains, and ranks the best value options.
 
+**Live site:** https://joshualparris.github.io/Cheappcslaptops/  
+**Roadmap:** [ROADMAP.md](ROADMAP.md)  
+**Source/data policy:** [docs/SOURCE-STRATEGY.md](docs/SOURCE-STRATEGY.md)
+
 ## Current bargain board
 
 The working static site is in [docs/index.html](docs/index.html), with canonical researched listing data in [docs/data/listings.json](docs/data/listings.json) and rendering logic in [docs/app.js](docs/app.js).
@@ -83,9 +87,12 @@ Full valuation:
 
 ## Documents
 
+- [Roadmap](ROADMAP.md)
+- [Source Strategy and Data Provenance](docs/SOURCE-STRATEGY.md)
 - [Deep Research Prompt](docs/DEEP-RESEARCH-PROMPT.md)
 - [Live Website Specification](docs/WEBSITE-SPEC.md)
 - [Dubbo Refurbished Laptop Market](docs/DUBBO-REFURB-MARKET.md)
+- [Current Fleet Resale Valuation](docs/FLEET-RESALE-VALUATION.md)
 
 ## Site publishing
 
@@ -97,11 +104,12 @@ https://joshualparris.github.io/Cheappcslaptops/
 
 ## Next phases
 
-- eBay AU Browse API for live automatic discovery and refresh
+- confirm/apply for eBay Buy API production eligibility before building the production adapter
 - sold/gone detection and price history
-- verified postcode-specific shipping where the source API supports it
-- more retailers and local/manual marketplace imports
+- verified postcode-specific shipping where an authorised source supports it
+- more retailer/feed sources plus local/manual marketplace imports
 - deterministic parts compatibility and a real sub-$100 build combiner
+- move generated report facts fully onto canonical structured data
 - track Dubbo refurb listing views, enquiries, offers and time-to-sale
 
 ## Status
