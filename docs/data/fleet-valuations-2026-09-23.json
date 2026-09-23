@@ -1,0 +1,230 @@
+{
+  "asOf": "2026-09-23",
+  "currency": "AUD",
+  "location": "Dubbo NSW, Australia",
+  "scope": "Josh's currently tracked laptop and desktop inventory",
+  "method": "Indicative upper-end gross sale prices for individually listed, cleaned, tested machines with accurate descriptions and chargers/accessories where applicable. These are not guaranteed sale prices and do not subtract marketplace fees, postage, returns, repairs or time.",
+  "summary": {
+    "activeLaptops": 15,
+    "activeDesktops": 7,
+    "activeMachines": 22,
+    "laptopsMaxPlausible": 1860,
+    "desktopsMaxCompleteSale": 1870,
+    "desktopsMaxWithCrosshairPartOut": 1970,
+    "fleetMaxCompleteSale": 3730,
+    "fleetMaxOptimisedSale": 3830,
+    "headlineUpperEndRange": [3700, 3800],
+    "fasterSaleRange": [2700, 3200],
+    "excludedAsIsExtraRange": [80, 130]
+  },
+  "platformStrategy": [
+    {
+      "platform": "Facebook Marketplace",
+      "bestFor": "Dubbo local laptops, desktops, iMacs and bulky systems",
+      "why": "Local pickup avoids freight and fees, and lets buyers inspect working systems."
+    },
+    {
+      "platform": "Gumtree",
+      "bestFor": "Duplicate local listings and bulky computers",
+      "why": "Useful second local channel for Dubbo and surrounding-region buyers."
+    },
+    {
+      "platform": "eBay Australia",
+      "bestFor": "Collectible or enthusiast hardware, older ThinkPads, MacBook Air and Crosshair V parts",
+      "why": "A national buyer pool can matter more than local demand for unusual hardware."
+    }
+  ],
+  "machines": [
+    {
+      "category": "laptop",
+      "name": "HP ProBook x360 435 G8",
+      "spec": "Ryzen 5 5600U · 16 GB RAM · 256 GB NVMe",
+      "maxPlausible": 350,
+      "condition": "Only at this price if the previously observed cooling issue is proven fixed",
+      "recommendedPlatform": "Facebook Marketplace / eBay"
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite L50-A",
+      "spec": "Core i5-3337U · GeForce GT 740M · 4 GB RAM · replacement HDD",
+      "maxPlausible": 180,
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "laptop",
+      "name": "MacBook Air Early 2015",
+      "spec": "PCIe SSD · exact RAM/SSD capacity still to be confirmed",
+      "maxPlausible": 230,
+      "indicativeRange": [180, 230],
+      "recommendedPlatform": "eBay / Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Lenovo ThinkPad L480",
+      "spec": "Core i3-7130U · 8 GB RAM · ~256 GB SSD",
+      "maxPlausible": 180,
+      "recommendedPlatform": "Facebook Marketplace / eBay"
+    },
+    {
+      "category": "laptop",
+      "name": "HP ProBook 11 EE G2",
+      "spec": "Core i3-6100U · 8 GB RAM · 128 GB SSD",
+      "maxPlausible": 100,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite L850D",
+      "spec": "AMD A10-4600M · 8 GB RAM · ~120 GB SSD",
+      "maxPlausible": 120,
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "laptop",
+      "name": "HP ProBook 4230s",
+      "spec": "Core i3-2330M · 8 GB RAM · 250 GB SSD",
+      "maxPlausible": 90,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Tecra P11",
+      "spec": "Core i7-620M · 8 GB RAM · 256 GB SSD",
+      "maxPlausible": 110,
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite L630",
+      "spec": "Pentium P6100 · 8 GB RAM · 240 GB SSD",
+      "maxPlausible": 70,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "ASUS X553MA / F553M",
+      "spec": "Celeron N3540 · 8 GB RAM · SSD",
+      "maxPlausible": 90,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "HP 15-db0034AU",
+      "spec": "HDD · requires external display / HDMI",
+      "maxPlausible": 60,
+      "indicativeRange": [50, 60],
+      "condition": "Fault/limitation must be disclosed",
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Compaq Presario CQ56",
+      "spec": "Celeron T3500 · 4 GB RAM · ~120 GB SSD",
+      "maxPlausible": 70,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Compaq 610",
+      "spec": "Core 2 Duo T5870 · HDD",
+      "maxPlausible": 60,
+      "indicativeRange": [50, 60],
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite C50D-A",
+      "spec": "AMD E1-2100 · 8 GB RAM · SSD",
+      "maxPlausible": 70,
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "laptop",
+      "name": "Lenovo ThinkPad T61 6457-BP2",
+      "spec": "Core 2 Duo T7500 · 4 GB RAM · HDD · display history/issues",
+      "maxPlausible": 80,
+      "indicativeRange": [60, 80],
+      "recommendedPlatform": "eBay / Facebook Marketplace"
+    },
+    {
+      "category": "desktop",
+      "name": "JParrisDesktop",
+      "spec": "Core i5-9400 · 16 GB RAM · GTX 1660 6 GB · SSD + 1 TB HDD",
+      "maxPlausible": 550,
+      "indicativeRange": [500, 550],
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "desktop",
+      "name": "Apple iMac Retina 5K 27-inch 2017",
+      "spec": "Core i5 · 8 GB RAM · Radeon Pro 570 4 GB · 1 TB storage",
+      "maxPlausible": 450,
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "desktop",
+      "name": "Lenovo 7567Y2M desktop",
+      "spec": "Core i5-2400S · 8 GB RAM · SSD",
+      "maxPlausible": 120,
+      "indicativeRange": [100, 120],
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "desktop",
+      "name": "Apple iMac 24-inch Early 2009",
+      "spec": "Core 2 Duo 2.66 GHz · 4 GB RAM · HDD",
+      "maxPlausible": 150,
+      "indicativeRange": [120, 150],
+      "recommendedPlatform": "Facebook Marketplace / Gumtree"
+    },
+    {
+      "category": "desktop",
+      "name": "Lenovo C260 #1",
+      "spec": "Celeron J1800 · 4 GB RAM · HDD",
+      "maxPlausible": 100,
+      "indicativeRange": [80, 100],
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "desktop",
+      "name": "Lenovo C260 #2",
+      "spec": "Celeron J1800 · 4 GB RAM · HDD",
+      "maxPlausible": 100,
+      "indicativeRange": [80, 100],
+      "recommendedPlatform": "Facebook Marketplace"
+    },
+    {
+      "category": "desktop",
+      "name": "Crosshair V Formula-Z desktop",
+      "spec": "AMD FX-6300 · 16 GB DDR3 · XFX Radeon R9 290 4 GB · 240 GB SanDisk SSD · Thermaltake Litepower Gen3 500 W",
+      "maxPlausible": 400,
+      "indicativeRange": [350, 400],
+      "partOutMaxPlausible": 500,
+      "condition": "Enthusiast motherboard may be worth more when parted out than as a complete FX-era tower",
+      "recommendedPlatform": "eBay for parts / Facebook Marketplace complete"
+    }
+  ],
+  "notCountedInMainFleet": [
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite P750",
+      "reason": "Excluded from active fleet because a dedicated charger is missing",
+      "asIsMaxPlausible": 80,
+      "indicativeRange": [50, 80]
+    },
+    {
+      "category": "laptop",
+      "name": "Toshiba Satellite A200",
+      "reason": "Excluded from active fleet because a dedicated charger is missing",
+      "asIsMaxPlausible": 50,
+      "indicativeRange": [30, 50]
+    }
+  ],
+  "importantNotes": [
+    "The HP ProBook x360 435 G8 should not be advertised at the upper-end price until its previously observed high-temperature behaviour has been repaired or validated.",
+    "The Crosshair V Formula-Z system may return more money parted out because the motherboard has enthusiast/collector value.",
+    "Older Windows-unsupported laptops are capped by cheap availability of much newer refurbished business laptops.",
+    "Marketplace asking prices are not the same as completed-sale prices. These figures are deliberately presented as plausible upper-end targets, not guarantees.",
+    "A fast-sale strategy usually means accepting materially less than the maximum individual-sale total."
+  ]
+}
