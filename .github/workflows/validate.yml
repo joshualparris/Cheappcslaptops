@@ -56,3 +56,6 @@ jobs:
 
       - name: Smoke-test static site
         run: python3 scripts/smoke_site.py
+
+      - name: Syntax-check browser JavaScript
+        run: node --check docs/app.js
