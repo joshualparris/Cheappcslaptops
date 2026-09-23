@@ -70,23 +70,75 @@
         </div>
       </div>
 
-      <div class="toolbar">
-        <div class="filters" role="group" aria-label="Deal type">
-          <button class="filter active" data-filter="all">All</button>
-          <button class="filter" data-filter="desktop">Desktops</button>
-          <button class="filter" data-filter="laptop">Laptops</button>
-          <button class="filter" data-filter="part">Parts</button>
-          <button class="filter" data-filter="auction">Auction watches</button>
+      <div class="deal-filter-panel" aria-label="Deal filters">
+        <div class="filter-row filter-row-main">
+          <div class="filter-group">
+            <span class="filter-label">Type</span>
+            <div class="filters" role="group" aria-label="Deal type">
+              <button type="button" class="filter active" data-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="filter" data-filter="desktop" aria-pressed="false">Desktops</button>
+              <button type="button" class="filter" data-filter="laptop" aria-pressed="false">Laptops</button>
+              <button type="button" class="filter" data-filter="part" aria-pressed="false">Parts</button>
+              <button type="button" class="filter" data-filter="auction" aria-pressed="false">Auction watches</button>
+            </div>
+          </div>
+          <label class="search deal-search">
+            <span class="filter-label">Search</span>
+            <input id="search" type="search" placeholder="CPU, model, seller, storage…" autocomplete="off">
+          </label>
         </div>
-        <label class="search">
-          <span class="sr-only">Search deals</span>
-          <input id="search" type="search" placeholder="Search CPU, GPU, model…">
-        </label>
+
+        <div class="filter-row">
+          <div class="filter-group">
+            <span class="filter-label">Operating system</span>
+            <div class="facet-buttons" role="group" aria-label="Operating system">
+              <button type="button" class="toggle-filter" data-toggle="windows" aria-pressed="false">Windows</button>
+              <button type="button" class="toggle-filter" data-toggle="chrome" aria-pressed="false">ChromeOS</button>
+              <button type="button" class="toggle-filter" data-toggle="otherOs" aria-pressed="false">Other / no OS</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Hardware</span>
+            <div class="facet-buttons" role="group" aria-label="Hardware">
+              <button type="button" class="toggle-filter" data-toggle="fourGb" aria-pressed="false">4GB+ RAM</button>
+              <button type="button" class="toggle-filter" data-toggle="solidState" aria-pressed="false">SSD / eMMC / flash</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Evidence & delivery</span>
+            <div class="facet-buttons" role="group" aria-label="Evidence and delivery">
+              <button type="button" class="toggle-filter" data-toggle="freeShipping" aria-pressed="false">Free shipping</button>
+              <button type="button" class="toggle-filter" data-toggle="direct" aria-pressed="false">Direct listing</button>
+              <button type="button" class="toggle-filter" data-toggle="fresh" aria-pressed="false">Fresh only</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-row filter-row-controls">
+          <label class="select-filter">
+            <span>Max delivered</span>
+            <select id="maxPrice">
+              <option value="50">Up to $50</option>
+              <option value="75">Up to $75</option>
+              <option value="100" selected>Up to $100</option>
+            </select>
+          </label>
+          <label class="select-filter">
+            <span>Sort</span>
+            <select id="sortMode">
+              <option value="price" selected>Price: low to high</option>
+              <option value="newest">Most recently checked</option>
+              <option value="ram">Most RAM first</option>
+            </select>
+          </label>
+          <button type="button" class="clear-filters" id="clearFilters">Reset filters</button>
+          <span class="active-filter-count" id="activeFilterCount" aria-live="polite">No extra filters</span>
+        </div>
       </div>
 
       <div id="dealDetail" class="deal-detail" hidden></div>
-      <div class="results-meta"><span id="resultCount" role="status" aria-live="polite"></span><span id="sortLabel">Sorted by delivered price</span></div>
-      <p class="filter-note">The default view excludes auctions because the observed bid is not a guaranteed purchase price. Use <strong>Auction watches</strong> to inspect them separately.</p>
+      <div class="results-meta"><span id="resultCount" role="status" aria-live="polite"></span><span id="sortLabel">Delivered price low → high</span></div>
+      <p class="filter-note">Operating-system toggles combine as OR (for example Windows + ChromeOS). Other toggles narrow the results. Auction watches stay separate because an observed bid is not a guaranteed purchase price.</p>
       <div class="deal-grid" id="dealGrid"></div>
       <div class="empty" id="empty" hidden>No matching deals.</div>
     </section>
