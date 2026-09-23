@@ -291,3 +291,13 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
   .clear-filters{width:100%}
   .active-filter-count{margin-left:0;padding-bottom:0}
 }
+
+.fleet-evidence{margin:16px 0;border-top:1px solid var(--line);padding-top:14px}
+.fleet-evidence>summary{cursor:pointer;font-weight:850;color:#2e4f22}
+.fleet-evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.fleet-evidence-card{background:#f7f8f4;border:1px solid #e6e8e1;border-radius:14px;padding:14px}
+.fleet-evidence-card h4{margin:0 0 7px;font-size:.94rem}
+.fleet-evidence-card p{font-size:.76rem;margin:0 0 8px;color:#566052}
+.fleet-evidence-card .evidence-interpretation{font-weight:700;color:#475467}
+.fleet-evidence-card .source-links{margin-top:9px}
+@media(max-width:700px){.fleet-evidence-grid{grid-template-columns:1fr}}
