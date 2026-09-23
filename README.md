@@ -8,13 +8,19 @@ The long-term goal is a website that continuously discovers current listings, no
 
 ## Current bargain board
 
-The first working static site is now in [docs/index.html](docs/index.html), with the researched deal data in [docs/app.js](docs/app.js).
+The working static site is in [docs/index.html](docs/index.html), with canonical researched listing data in [docs/data/listings.json](docs/data/listings.json) and rendering logic in [docs/app.js](docs/app.js).
 
 Current 23 September 2026 sweep includes:
 - Dell OptiPlex 9020 SFF — i7-4770 / 8 GB / 500 GB — **$99 shown delivered**
 - HP ProDesk 600 G1 SFF — i5-4590 / 8 GB / 128 GB SSD — **$99 shown delivered**
 - HP T630 thin client — GX-420GI / 8 GB / 32 GB SSD + adaptor — **$68 shown delivered**
-- Samsung Chromebook 4 — N4020 / 4 GB / 64 GB — **$99 shown delivered**
+- Dell Thin Client 5070 — J5005 / 4 GB / 16 GB eMMC + PSU — **$68 shown delivered**
+- ASUS Chromebook C214M Touch — N4020 / 4 GB — **$77 shown delivered**
+- Acer C731 Chromebook — N3160 — **$70 shown delivered**
+- ASUS E402S — N3050 / 2 GB / 32 GB eMMC / Windows 10 — **$89 shown delivered**
+- Toshiba Satellite L455-S5980 — T3000 / 4 GB / 500 GB / Windows 10 — **$91 shown delivered**
+- Samsung Chromebook 4 and ASUS Chromebook C204MA — **$99 shown delivered**
+- Lenovo ThinkPad Core i3 13.3-inch and Acer Aspire 5750 — **$100 shown delivered**
 - cheap DDR3 RAM, low-profile GPUs, SATA SSDs and a GTX 960, all with shipping included in the displayed total
 
 The site has desktop/laptop/parts filters, search, delivered-price breakdowns, compatibility notes and source links.
@@ -66,7 +72,7 @@ Full research:
 
 A GitHub Pages workflow is included at [.github/workflows/pages.yml](.github/workflows/pages.yml). If Pages has not yet been enabled for this repository, set **Settings → Pages → Build and deployment → Source → GitHub Actions**, then re-run the workflow.
 
-Expected Pages URL once enabled:
+Live Pages URL:
 
 https://joshualparris.github.io/Cheappcslaptops/
 
