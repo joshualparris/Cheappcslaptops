@@ -185,7 +185,9 @@ def validate_listing(
     if url_kind == "direct-listing" and "/sch/" in source_url:
         errors.append(f"{prefix}: direct-listing URL appears to be a search URL")
     if url_kind == "search-fallback":
-        warnings.append(f"{prefix}: search-fallback evidence is weaker than a direct listing")
+        if status == "active":
+            errors.append(f"{prefix}: search-fallback records cannot be availabilityStatus='active'")
+        warnings.append(f"{prefix}: search-fallback evidence is a research lead, not a verified current listing")
 
     first_seen = parse_iso_date(listing.get("firstSeenAt"), f"{prefix}.firstSeenAt", errors)
     last_checked = parse_iso_date(listing.get("lastCheckedAt"), f"{prefix}.lastCheckedAt", errors)
