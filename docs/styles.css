@@ -145,3 +145,6 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
 .evidence-details ul{margin:8px 0 2px;padding-left:19px}
 .evidence-details li+li{margin-top:4px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button:hover{transform:none}}
+
+.filter-note{margin:-4px 0 16px;color:var(--muted);font-size:.78rem;max-width:760px}
+.filter[aria-pressed="true"]{box-shadow:0 0 0 2px rgba(20,33,21,.08)}
