@@ -315,17 +315,15 @@ async function renderFleetValuation(){
       <p>${escapeHtml(p.why)}</p>
     </article>`).join("");
 
-    const rows=[...data.machines].sort((a,b)=>{
-      if(a.category!==b.category) return a.category.localeCompare(b.category);
-      return b.maxPlausible-a.maxPlausible;
-    });
+    const rows=[...data.machines].sort((a,b)=>b.maxPlausible-a.maxPlausible);
 
     tableEl.innerHTML=rows.map(m=>{
       const extra=m.partOutMaxPlausible
         ? `<div class="partout">Up to ${money(m.partOutMaxPlausible)} parted</div>`
         : "";
       const condition=m.condition ? `<div class="row-note">${escapeHtml(m.condition)}</div>` : "";
-      return `<tr>
+      const searchable=`${m.name} ${m.spec} ${m.recommendedPlatform||""} ${m.condition||""}`.toLowerCase();
+      return `<tr class="fleet-row" data-category="${escapeHtml(m.category)}" data-search="${escapeHtml(searchable)}">
         <td><strong>${escapeHtml(m.name)}</strong>${condition}</td>
         <td>${escapeHtml(m.spec)}</td>
         <td><span class="type">${escapeHtml(m.category)}</span></td>
@@ -333,6 +331,25 @@ async function renderFleetValuation(){
         <td>${escapeHtml(m.recommendedPlatform||"—")}</td>
       </tr>`;
     }).join("");
+
+    const fleetSearch=document.querySelector("#fleetSearch");
+    const fleetCategory=document.querySelector("#fleetCategory");
+    const fleetResultCount=document.querySelector("#fleetResultCount");
+    const applyFleetFilters=()=>{
+      const needle=(fleetSearch?.value||"").trim().toLowerCase();
+      const category=fleetCategory?.value||"all";
+      let visible=0;
+      tableEl.querySelectorAll(".fleet-row").forEach(row=>{
+        const categoryMatch=category==="all"||row.dataset.category===category;
+        const textMatch=!needle||(row.dataset.search||"").includes(needle);
+        row.hidden=!(categoryMatch&&textMatch);
+        if(!row.hidden) visible++;
+      });
+      if(fleetResultCount) fleetResultCount.textContent=`${visible} of ${rows.length} machines shown`;
+    };
+    fleetSearch?.addEventListener("input",applyFleetFilters);
+    fleetCategory?.addEventListener("change",applyFleetFilters);
+    applyFleetFilters();
 
     const ex=data.notCountedInMainFleet;
     excludedEl.innerHTML=`<strong>Not counted in the main total:</strong> ${ex.map(m=>`${escapeHtml(m.name)} (${escapeHtml(money(m.indicativeRange[0]))}–${escapeHtml(money(m.indicativeRange[1]))} as-is; ${escapeHtml(m.reason.toLowerCase())})`).join("; ")}.`;
