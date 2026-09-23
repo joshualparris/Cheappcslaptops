@@ -202,3 +202,22 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
 @media(max-width:1000px){.profit-results{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:850px){.calculator-grid{grid-template-columns:1fr}.profit-results{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.profit-results{grid-template-columns:1fr}.calc-panel{padding:16px}}
+
+.deal-detail{background:#fff;border:1px solid #cfd8be;border-radius:var(--radius);padding:24px;margin:0 0 18px;box-shadow:var(--shadow)}
+.deal-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.deal-detail-head h3{font-size:1.45rem;margin:8px 0 4px}
+.deal-detail-head p{color:var(--muted);font-size:.82rem}
+.detail-close,.copy-link-button{border:1px solid #cfd4c8;background:#f7f8f4;border-radius:999px;padding:9px 13px;font:inherit;font-weight:800;cursor:pointer}
+.deal-detail-price{font-size:2rem;font-weight:900;letter-spacing:-.045em;color:#1d3316;margin:8px 0 12px}
+.deal-detail-price span{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:0}
+.deal-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.deal-detail-grid>div{background:#f7f8f4;border-radius:12px;padding:10px}
+.deal-detail-grid span{display:block;color:var(--muted);font-size:.67rem;text-transform:uppercase;letter-spacing:.06em}
+.detail-risks{font-size:.8rem;color:#566052;margin-top:10px}
+.detail-risks ul{margin:7px 0 0;padding-left:19px}
+.deal-detail-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.deal-detail-actions .notes-button{color:var(--ink)}
+.card-actions{display:flex;gap:7px;align-items:center}
+.card-footer .details-link{background:#fff;color:var(--dark);border:1px solid #cfd4c8}
+@media(max-width:700px){.deal-detail-grid{grid-template-columns:repeat(2,1fr)}.deal-detail-head{flex-direction:column}}
+@media(max-width:420px){.deal-detail-grid{grid-template-columns:1fr}.card-footer{align-items:flex-start;flex-direction:column}.card-actions{width:100%}.card-actions a{flex:1;text-align:center}}
