@@ -156,9 +156,14 @@ This roadmap is being implemented as small, reviewable commits. Status below ref
 - ✅ **Shareable filter state** — deal filters persist in the URL.
 - ✅ **Canonical/social metadata** — basic canonical + social metadata added.
 - ✅ **robots.txt + sitemap.xml** added.
-- ✅ **Static-site smoke checks** — Pages deployment is gated on basic site/data integrity checks.
+- ✅ **Static-site smoke checks** — Pages deployment is gated on site/data integrity checks across every HTML entry point.
 - ✅ **Fleet valuation validation** — fleet totals/data are checked in CI.
 - ✅ **Safer dynamic rendering** — fleet data is escaped before HTML rendering.
+- ✅ **Multi-facet deal filtering** — structured filter controls now go beyond the original type-only view.
+- ✅ **Fleet pricing evidence** — valuation rows expose supporting pricing/evidence anchors rather than only unexplained estimates.
+- ✅ **Full refurb profit calculator** — a separate true-cost model includes acquisition, parts, percentage fees, negotiation, risk reserve, annual licence allocation, labour, break-even asking price and effective hourly return.
+- ✅ **Refurb calculator tests** — profit arithmetic and invalid percentage combinations are exercised in CI.
+- ✅ **Concurrent PDF publishing** — generated-report commits rebase/retry safely when unrelated roadmap micro-commits land during a workflow run.
 - 🟡 **Accessibility** — visible focus, reduced-motion handling, text-labelled evidence states and live filter result counts are implemented; a fuller WCAG 2.2 audit remains.
 - 🟡 **Separate evidence views** — auctions are separated; shipping-unverified, refurb-candidate and sold/gone history views remain.
 
@@ -170,7 +175,7 @@ This roadmap is being implemented as small, reviewable commits. Status below ref
 - ⬜ **Shareable listing detail pages** with evidence history.
 - ⬜ **Deterministic compatibility engine** and build combiner.
 - ⬜ **Hardware reference dataset** with provenance for CPU/GPU/chassis/PSU/Windows support.
-- ⬜ **Refurb profit calculator** including licence allocation, labour and failure/return reserve.
+- ✅ **Refurb profit calculator** including licence allocation, labour and failure/return reserve.
 - ⬜ **Standard refurb QA checklist** and measured Dubbo demand experiment.
 - ⬜ **Compliance pack** covering dated NSW/ACL/electrical/tax obligations.
 - ⬜ **Source health/observability dashboard**.
@@ -198,6 +203,12 @@ Key roadmap commits so far:
 | `54e56501` | Boundary tests in CI |
 | `fce9cae5` | README navigation/live-site links |
 | `634398f5` | PDF listing facts sourced from canonical JSON |
+| `8ec2f02d` | Refurb true-cost calculation engine |
+| `81628d9c` | Full refurb calculator page |
+| `0b0ba3cc` | Refurb calculator formula tests |
+| `593bf98f` | Full validation + refurb tests in CI |
+| `f18de247` | Concurrent-safe PDF publishing |
+| `fe96d4a1` | Smoke-test every static HTML page |
 
 Additional small commits on `main` have implemented fleet valuation, auction filtering, URL filter state, fleet validation, SEO metadata, robots/sitemap and site smoke checks.
 
