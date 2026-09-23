@@ -7,8 +7,10 @@ const money = n => new Intl.NumberFormat("en-AU", {
 const labels = { desktop: "Desktop", laptop: "Laptop", part: "Part" };
 
 let deals = [];
-let activeFilter = "all";
-let query = "";
+const validFilters = new Set(["all","desktop","laptop","part","auction"]);
+const initialParams = new URLSearchParams(window.location.search);
+let activeFilter = validFilters.has(initialParams.get("filter")) ? initialParams.get("filter") : "all";
+let query = (initialParams.get("q") || "").trim().toLowerCase();
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -192,9 +194,33 @@ function card(d) {
   </article>`;
 }
 
+function matchesFilter(d) {
+  if (activeFilter === "auction") return d.buyingMode === "auction";
+  if (d.buyingMode === "auction") return false;
+  return activeFilter === "all" || d.type === activeFilter;
+}
+
+function syncUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  if (activeFilter === "all") params.delete("filter");
+  else params.set("filter", activeFilter);
+  if (query) params.set("q", query);
+  else params.delete("q");
+  const next = `${window.location.pathname}${params.toString() ? `?${params}` : ""}${window.location.hash}`;
+  window.history.replaceState(null, "", next);
+}
+
+function setActiveFilterButton() {
+  document.querySelectorAll(".filter").forEach(button => {
+    const active = button.dataset.filter === activeFilter;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
 function render() {
   const filtered = deals
-    .filter(d => activeFilter === "all" || d.type === activeFilter)
+    .filter(matchesFilter)
     .filter(d => !query || [d.title, d.seller, ...d.specs, d.note, d.evidenceNote, ...d.risks]
       .join(" ")
       .toLowerCase()
@@ -202,23 +228,31 @@ function render() {
     .sort((a, b) => a.total - b.total);
 
   document.querySelector("#dealGrid").innerHTML = filtered.map(card).join("");
+  const noun = activeFilter === "auction" ? "auction watch" : "deal";
   document.querySelector("#resultCount").textContent =
-    `${filtered.length} deal${filtered.length === 1 ? "" : "s"} shown`;
+    `${filtered.length} ${noun}${filtered.length === 1 ? "" : "s"} shown`;
+  document.querySelector("#sortLabel").textContent =
+    activeFilter === "auction" ? "Sorted by observed bid + shown delivery" : "Sorted by delivered price";
   document.querySelector("#empty").hidden = filtered.length !== 0;
+  setActiveFilterButton();
+  syncUrlState();
 }
 
 function bindControls() {
+  const search = document.querySelector("#search");
+  search.value = query;
+
   document.querySelectorAll(".filter").forEach(btn => btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
     activeFilter = btn.dataset.filter;
     render();
   }));
 
-  document.querySelector("#search").addEventListener("input", event => {
+  search.addEventListener("input", event => {
     query = event.target.value.trim().toLowerCase();
     render();
   });
+
+  setActiveFilterButton();
 }
 
 async function init() {
@@ -227,9 +261,7 @@ async function init() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const payload = await response.json();
 
-    deals = payload.listings
-      .filter(item => item.buyingMode !== "auction")
-      .map(normalise);
+    deals = payload.listings.map(normalise);
 
     renderStats(payload);
     renderLeaders();
