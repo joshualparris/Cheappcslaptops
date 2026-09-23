@@ -20,6 +20,30 @@ The project should eventually answer, with current evidence:
 
 ---
 
+## Implementation status — 23 September 2026
+
+| Area | Status |
+|---|---|
+| Canonical listing dataset | ✅ Implemented in `docs/data/listings.json` |
+| Listing validator + CI | ✅ Implemented |
+| Freshness/evidence badges | ✅ Implemented |
+| Canonical-data website rendering | ✅ Implemented |
+| Separate auction-watch view | ✅ Implemented |
+| Shareable deal filter/search state | ✅ Implemented |
+| GitHub Pages deployment | ✅ Working and validation-gated |
+| Fleet resale valuation dataset | ✅ Implemented and CI-validated |
+| Static-site smoke tests | ✅ Implemented |
+| Refurb profit calculator | ✅ Implemented |
+| SEO/social metadata + sitemap | ✅ Implemented |
+| Shareable per-listing detail views | ⏳ Not yet implemented |
+| Automated source refresh | ⏳ Not yet implemented |
+| Compatibility engine / build combiner | ⏳ Not yet implemented |
+| Real Dubbo resale experiment | ⏳ Not yet measured |
+
+The roadmap below remains the long-term plan; completed foundation items are retained for architectural context.
+
+---
+
 # Current audit
 
 ## What is already good
@@ -36,18 +60,13 @@ The project should eventually answer, with current evidence:
 ## Main weaknesses
 
 ### Data integrity
-- Listing facts are duplicated across:
-  - `docs/app.js`
-  - `docs/data/research-2026-09-23.json`
-  - `docs/research/2026-09-23.md`
-  - the PDF generator
-  - homepage prose
-- The website therefore can drift away from the research evidence.
-- There is no automated schema/logic validation.
-- Some listings use a search-results URL rather than a specific listing URL.
+- The website now renders listing cards from the canonical `docs/data/listings.json` dataset and CI validates totals, enums, dates, budget rules and duplicate IDs.
+- The PDF generator has begun sourcing listing facts from canonical data, reducing duplicate truth sources.
+- Remaining drift risk is mainly hand-written homepage/research prose that can outlive a refreshed dataset.
+- Some listings still use a search-results URL rather than a specific listing URL.
 - Shipping described as “free” is not necessarily postcode-2830 checkout-verified.
-- There is no consistent first-seen / last-checked / expires-or-stale model.
-- A seller-installed Windows 11 claim can appear on hardware that Microsoft does not officially support; OS-installed and OS-supported need separate fields.
+- First-seen / last-checked fields and automatic freshness labels now exist, but there is not yet an automated source refresh that marks sold/gone listings.
+- OS-installed and OS-supported are separate canonical fields, but coverage still needs ongoing review as inventory expands.
 
 ### Freshness
 - The website calls itself “live”, but the current listings are a dated research snapshot.
@@ -62,24 +81,21 @@ The project should eventually answer, with current evidence:
 - Retailer adapters need explicit source-by-source permission/terms review.
 
 ### Deployment / CI
-- Pages currently fails because `configure-pages` is trying to auto-enable Pages through an integration that cannot change that repository setting.
-- There is no validation job before deploy.
-- Workflow actions are referenced by moving version tags rather than immutable commit SHAs.
-- Generated PDF automation writes directly to `main`, which can create noisy follow-up workflow runs.
+- GitHub Pages deployment is now working and is gated by canonical listing validation, fleet-valuation validation and static-site smoke tests.
+- Workflow actions are pinned to immutable commit SHAs.
+- Rapid micro-commits intentionally cancel intermediate Pages deployments through workflow concurrency; only the newest deployment needs to finish.
+- Generated-report automation still needs careful coordination to avoid unnecessary follow-up runs on `main`.
+- JavaScript behaviour does not yet have browser-level automated tests.
 
 ### Front-end / UX
-- Price is prominent, but evidence quality is not.
-- “Shipping shown” needs a clear confidence/status label.
-- No visible stale/expired indicator.
-- No separate treatment for:
-  - confirmed fixed-price buys
-  - auction watches
-  - negotiation-required listings
-  - shipping-unverified listings
-- Search/filter state is not reflected in the URL.
-- There is no shareable listing detail page.
-- Accessibility can improve: status should never rely on colour alone, dynamic result counts should be announced, and focus states/navigation should be audited against WCAG 2.2.
-- There is no structured metadata for search engines/social sharing.
+- Cards now expose freshness, shipping-confidence and source-evidence labels alongside price.
+- Auction watches are separated from the default fixed-price view.
+- Search/filter state is reflected in shareable query parameters.
+- Dynamic result counts use live status messaging, visible focus styles are present, and reduced-motion behaviour is respected.
+- Canonical, Open Graph/Twitter and CollectionPage metadata plus sitemap/robots files now exist.
+- Remaining view gaps include negotiation-required, shipping-unverified and sold/gone history views.
+- There is still no shareable per-listing detail page.
+- A full WCAG 2.2 AA audit and browser/zoom testing remain outstanding.
 
 ### Compatibility / hardware intelligence
 - Compatibility notes are prose only.
