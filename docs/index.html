@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Current ultra-budget PCs, laptops and parts priced by real delivered cost to Dubbo NSW 2830.">
+  <title>Cheap PCs & Laptops — Dubbo $100 Challenge</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">DUBBO NSW 2830 · LIVE BARGAIN BOARD</div>
+      <h1>How much computer can <span>$100</span> buy?</h1>
+      <p class="lede">Working PCs, laptops and useful parts. Complete systems are only shown when the listed item + delivery total is <strong>$100 AUD or less</strong>.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#deals">See current deals</a>
+        <a class="button ghost" href="https://github.com/joshualparris/Cheappcslaptops" target="_blank" rel="noreferrer">View source on GitHub</a>
+      </div>
+      <div class="stats" id="stats" aria-label="Current deal summary"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="leaderboard" aria-labelledby="leaders-title">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow dark">23 SEPTEMBER 2026 SWEEP</div>
+          <h2 id="leaders-title">Current stand-outs</h2>
+        </div>
+        <p>Shipping shown below is the amount visible in the current listing/search result. Always re-check at checkout for postcode 2830 before paying.</p>
+      </div>
+      <div class="leader-grid" id="leaders"></div>
+    </section>
+
+    <section id="deals" class="deals" aria-labelledby="deals-title">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow dark">ALL QUALIFYING FINDS</div>
+          <h2 id="deals-title">Deals under the cap</h2>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="Deal type">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="desktop">Desktops</button>
+          <button class="filter" data-filter="laptop">Laptops</button>
+          <button class="filter" data-filter="part">Parts</button>
+        </div>
+        <label class="search">
+          <span class="sr-only">Search deals</span>
+          <input id="search" type="search" placeholder="Search CPU, GPU, model…">
+        </label>
+      </div>
+
+      <div class="results-meta"><span id="resultCount"></span><span>Sorted by delivered price</span></div>
+      <div class="deal-grid" id="dealGrid"></div>
+      <div class="empty" id="empty" hidden>No matching deals.</div>
+    </section>
+
+    <section class="rules">
+      <div>
+        <div class="eyebrow dark">THE RULE</div>
+        <h2>$100 means $100 all-in.</h2>
+      </div>
+      <div class="rule-copy">
+        <p>A “$70 computer” with $40 postage is not a $70 bargain. For complete PCs and laptops, this board counts item price + shown delivery + mandatory missing parts. Unknown-shipping systems are kept off the qualifying board.</p>
+        <p>Parts are listed separately because a $78 GPU is useful market intelligence even when it cannot make a complete $100 build by itself. Compatibility is not assumed.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <p>Built for the <strong>$100 PC Challenge</strong> · Dubbo NSW 2830</p>
+      <p>Listings can sell or change price at any time. Last research sweep: 23 Sep 2026.</p>
+    </div>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
