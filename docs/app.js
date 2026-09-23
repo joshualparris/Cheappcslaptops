@@ -190,11 +190,13 @@ function card(d) {
   const shipping = d.shipping === 0 ? "FREE" : money(d.shipping);
   const freshness = freshnessFor(d.checkedRaw, d.availabilityStatus);
   const actionable = isActionableDeal(d);
-  const sourceAction = d.urlKind === "direct-listing" ? "Open listing ↗" : "Search eBay ↗";
   const leadWarning = actionable ? "" : `
     <div class="research-lead-warning">
-      Research lead only — this is not a verified current direct listing.
+      Research lead only — no verified current direct listing link is available.
     </div>`;
+  const sourceControl = actionable
+    ? `<a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">Open verified listing ↗</a>`
+    : '<span class="source-unavailable" aria-label="No verified direct listing link">No verified listing link</span>';
   const riskList = d.risks.length
     ? `<ul>${d.risks.map(risk => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>`
     : "<p>No additional risks recorded.</p>";
@@ -229,7 +231,7 @@ function card(d) {
 
     <div class="card-footer">
       <span class="checked">Checked ${escapeHtml(d.checked)}</span>
-      <div class="card-actions"><a class="details-link" href="?deal=${encodeURIComponent(d.id)}#deals">Details</a><a href="${escapeHtml(safeUrl(d.source))}" target="_blank" rel="noreferrer">${escapeHtml(sourceAction)}</a></div>
+      <div class="card-actions"><a class="details-link" href="?deal=${encodeURIComponent(d.id)}#deals">Details</a>${sourceControl}</div>
     </div>
   </article>`;
 }
@@ -387,7 +389,9 @@ function renderDealDetail() {
     <div class="detail-risks"><strong>Risks / caveats</strong>${risks}</div>
     ${comparableBlock}
     <div class="deal-detail-actions">
-      <a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">${escapeHtml(deal.urlKind === "direct-listing" ? "Open listing ↗" : "Search source ↗")}</a>
+      ${isActionableDeal(deal)
+        ? `<a class="button notes-button" href="${escapeHtml(safeUrl(deal.source))}" target="_blank" rel="noreferrer">Open verified listing ↗</a>`
+        : '<span class="source-unavailable">No verified current listing link</span>'}
       <button type="button" class="copy-link-button" id="copyDealLink">Copy share link</button>
     </div>
   `;
