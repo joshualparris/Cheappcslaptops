@@ -137,7 +137,8 @@ function normalise(listing) {
 function isActionableDeal(d) {
   return d.buyingMode !== "auction" &&
     d.urlKind === "direct-listing" &&
-    d.availabilityStatus === "active";
+    d.availabilityStatus === "active" &&
+    d.availabilityConfidence === "verified";
 }
 
 function isResearchLead(d) {
