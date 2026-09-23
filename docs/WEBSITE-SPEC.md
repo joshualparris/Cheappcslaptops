@@ -25,11 +25,15 @@ The site should be useful every time it is opened, not a static research report.
 Use automatically and frequently where supported.
 
 **eBay Australia**
-- Preferred source: official eBay Browse API.
-- Supports keyword/category search, item detail and availability data.
-- Australia is a supported marketplace.
+- Preferred structured source if production access is approved: official eBay Browse API.
+- Browse API supports keyword/category search, item detail and availability data.
+- Australia (`EBAY_AU`) is a supported Browse API marketplace.
 - Requires eBay developer credentials/OAuth.
-- Store source ID, URL, last seen time, price, delivery data and availability.
+- **Production Buy API access is approval/partner restricted; it must be treated as a feasibility gate, not an assumed dependency.**
+- Before investing heavily in the collector, confirm production eligibility and approval for this use case.
+- Keep manual/feed fallbacks so the product still works if production API access is unavailable.
+- Store source ID, URL, URL evidence type, first/last seen time, price, shipping confidence and availability.
+- See [Source Strategy and Data Provenance](SOURCE-STRATEGY.md).
 
 ### Tier B — retailer pages / feeds
 
