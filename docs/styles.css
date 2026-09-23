@@ -66,6 +66,24 @@ section{padding:56px 0}
 .research-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .report-button{background:var(--dark);border-color:var(--dark);color:#fff}
 .notes-button{background:#fff;border-color:#cfd4c8;color:var(--ink)}
+
+.fleet{border-top:1px solid var(--line)}
+.fleet-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.fleet-stat{background:var(--dark);color:#fff;border-radius:18px;padding:18px;min-height:108px;display:flex;flex-direction:column;justify-content:space-between}
+.fleet-stat strong{color:var(--lime);font-size:1.65rem;letter-spacing:-.045em}
+.fleet-stat span{color:#cbd4c8;font-size:.78rem}
+.fleet-platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0 18px}
+.fleet-table-wrap{border-radius:var(--radius);border:1px solid var(--line);background:#fff}
+.fleet-table{min-width:900px}
+.fleet-table td:first-child{min-width:210px}
+.fleet-table td:nth-child(2){min-width:310px}
+.fleet-price{white-space:nowrap}
+.partout{font-size:.72rem;color:#52691d;margin-top:3px;font-weight:800}
+.row-note{font-size:.72rem;color:var(--warn);margin-top:4px;max-width:260px}
+.fleet-notes{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:14px}
+.fleet-notes p{color:#566052}
+.fleet-load-error{grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+
 .market{border-top:1px solid var(--line)}
 .market-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
 .market-callout{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 5px 20px rgba(20,33,21,.045)}
@@ -97,14 +115,14 @@ footer{background:#e9ecdf;padding:30px 0;color:#566052;font-size:.8rem}
 .footer-inner p{margin:0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:850px){
-  .stats,.leader-grid,.deal-grid,.market-summary{grid-template-columns:repeat(2,1fr)}
+  .stats,.leader-grid,.deal-grid,.market-summary,.fleet-summary,.fleet-platforms{grid-template-columns:repeat(2,1fr)}
   .section-heading{align-items:flex-start;flex-direction:column}
   .research-callout,.rules,.legal-panel{grid-template-columns:1fr;gap:15px}
   .market-grid{grid-template-columns:1fr}
 }
 @media(max-width:590px){
   .hero{padding-top:50px}
-  .stats,.leader-grid,.deal-grid,.market-summary{grid-template-columns:1fr}
+  .stats,.leader-grid,.deal-grid,.market-summary,.fleet-summary,.fleet-platforms{grid-template-columns:1fr}
   .toolbar{align-items:stretch;flex-direction:column}
   .search input{width:100%}
   .results-meta{gap:10px}
