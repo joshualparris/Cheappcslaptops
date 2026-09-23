@@ -118,6 +118,21 @@
 
       <div class="fleet-platforms" id="fleetPlatforms"></div>
 
+      <div class="fleet-controls">
+        <label class="search">
+          <span class="sr-only">Search your fleet</span>
+          <input id="fleetSearch" type="search" placeholder="Search fleet model, CPU, GPU…">
+        </label>
+        <label class="fleet-select">Category
+          <select id="fleetCategory">
+            <option value="all">All machines</option>
+            <option value="laptop">Laptops</option>
+            <option value="desktop">Desktops</option>
+          </select>
+        </label>
+        <span id="fleetResultCount" class="fleet-result-count" role="status" aria-live="polite"></span>
+      </div>
+
       <div class="table-wrap fleet-table-wrap">
         <table class="margin-table fleet-table">
           <thead>
