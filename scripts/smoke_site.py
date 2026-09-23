@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Small zero-dependency smoke test for the static GitHub Pages site."""
+"""Zero-dependency smoke test for every static GitHub Pages HTML entry point."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import json
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlsplit, unquote
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
@@ -35,7 +35,7 @@ class LocalReferenceParser(HTMLParser):
                 self.refs.append((attr, value))
 
 
-def local_target(value: str) -> tuple[Path | None, str | None]:
+def local_target(source_file: Path, value: str) -> tuple[Path | None, str | None]:
     if value.startswith(("http://", "https://", "mailto:", "tel:", "data:", "javascript:")):
         return None, None
 
@@ -44,14 +44,24 @@ def local_target(value: str) -> tuple[Path | None, str | None]:
     path = unquote(parsed.path)
 
     if not path:
-        return INDEX, fragment
+        return source_file, fragment
 
-    target = (DOCS / path.lstrip("./")).resolve()
+    if path.startswith("/"):
+        target = (DOCS / path.lstrip("/")).resolve()
+    else:
+        target = (source_file.parent / path).resolve()
+
     try:
         target.relative_to(DOCS.resolve())
     except ValueError:
         return Path("__outside_docs__"), fragment
     return target, fragment
+
+
+def parse_html(path: Path) -> LocalReferenceParser:
+    parser = LocalReferenceParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    return parser
 
 
 def main() -> int:
@@ -61,24 +71,44 @@ def main() -> int:
         print("ERROR: docs/index.html is missing")
         return 1
 
-    parser = LocalReferenceParser()
-    parser.feed(INDEX.read_text(encoding="utf-8"))
+    html_files = sorted(DOCS.rglob("*.html"))
+    if not html_files:
+        print("ERROR: no HTML pages found under docs/")
+        return 1
 
-    for duplicate in sorted(parser.duplicate_ids):
-        errors.append(f"duplicate HTML id: {duplicate}")
+    parsed_pages = {path.resolve(): parse_html(path) for path in html_files}
+    reference_count = 0
+    id_count = 0
 
-    for attr, value in parser.refs:
-        target, fragment = local_target(value)
-        if target is None:
-            continue
-        if target.name == "__outside_docs__":
-            errors.append(f"{attr} escapes docs directory: {value}")
-            continue
-        if not target.exists():
-            errors.append(f"missing local {attr} target: {value}")
-            continue
-        if target == INDEX and fragment and fragment not in parser.ids:
-            errors.append(f"missing in-page fragment target: #{fragment}")
+    for page, parser in parsed_pages.items():
+        page_label = page.relative_to(ROOT)
+        id_count += len(parser.ids)
+
+        for duplicate in sorted(parser.duplicate_ids):
+            errors.append(f"{page_label}: duplicate HTML id: {duplicate}")
+
+        for attr, value in parser.refs:
+            reference_count += 1
+            target, fragment = local_target(page, value)
+            if target is None:
+                continue
+            if target.name == "__outside_docs__":
+                errors.append(f"{page_label}: {attr} escapes docs directory: {value}")
+                continue
+            if not target.exists():
+                errors.append(f"{page_label}: missing local {attr} target: {value}")
+                continue
+
+            if fragment and target.suffix.lower() == ".html":
+                target_parser = parsed_pages.get(target.resolve())
+                if target_parser is None:
+                    target_parser = parse_html(target)
+                    parsed_pages[target.resolve()] = target_parser
+                if fragment not in target_parser.ids:
+                    errors.append(
+                        f"{page_label}: missing fragment {fragment!r} in "
+                        f"{target.relative_to(ROOT)}"
+                    )
 
     for required in (
         DOCS / "data" / "listings.json",
@@ -101,8 +131,9 @@ def main() -> int:
 
     print(
         "Site smoke test passed: "
-        f"{len(parser.refs)} local/external references scanned, "
-        f"{len(parser.ids)} unique IDs."
+        f"{len(html_files)} HTML page(s), "
+        f"{reference_count} references scanned, "
+        f"{id_count} unique IDs."
     )
     return 0
 
