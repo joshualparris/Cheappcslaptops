@@ -149,6 +149,35 @@ def main() -> int:
         ):
             errors.append(f"summary.{field}: expected ascending [low, high] numeric range")
 
+    evidence = payload.get("evidenceAnchors", [])
+    if not isinstance(evidence, list):
+        errors.append("evidenceAnchors must be an array")
+    else:
+        anchored: set[str] = set()
+        for index, anchor in enumerate(evidence):
+            prefix = f"evidenceAnchors[{index}]"
+            if not isinstance(anchor, dict):
+                errors.append(f"{prefix}: expected object")
+                continue
+            machine = anchor.get("machine")
+            if not isinstance(machine, str) or machine not in seen:
+                errors.append(f"{prefix}.machine: must match a machine name in the active fleet")
+            elif machine in anchored:
+                errors.append(f"{prefix}.machine: duplicate evidence anchor for {machine!r}")
+            else:
+                anchored.add(machine)
+            for field in ("observed", "interpretation"):
+                value = anchor.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    errors.append(f"{prefix}.{field}: required non-empty string")
+            urls = anchor.get("urls")
+            if not isinstance(urls, list) or not urls:
+                errors.append(f"{prefix}.urls: expected at least one source URL")
+            else:
+                for url_index, url in enumerate(urls):
+                    if not isinstance(url, str) or not url.startswith("https://"):
+                        errors.append(f"{prefix}.urls[{url_index}]: must be an HTTPS URL")
+
     excluded = payload.get("notCountedInMainFleet", [])
     if not isinstance(excluded, list):
         errors.append("notCountedInMainFleet must be an array")
