@@ -2,15 +2,6 @@ name: Generate research PDF
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/generate_report.py"
-      - "scripts/validate_data.py"
-      - "docs/data/listings.json"
-      - "docs/research/**"
-      - ".github/workflows/generate-report.yml"
-
 permissions:
   contents: write
 
