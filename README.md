@@ -63,6 +63,7 @@ The fleet section includes all tracked machines, specs/condition notes, maximum 
 
 Full valuation:
 - [Current Fleet Resale Valuation](docs/FLEET-RESALE-VALUATION.md)
+- [Conversation record: DadLAN, sub-$100 laptops, fleet valuation and site work](docs/research/2026-09-23-to-25-conversation-record.md)
 - [Structured fleet valuation data](docs/data/fleet-valuations-2026-09-23.json)
 
 ## Refurb profit calculator
