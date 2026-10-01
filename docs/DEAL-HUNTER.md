@@ -14,7 +14,19 @@ The scheduled workflow uses the **Brave Search API** to discover publicly indexe
 
 Add repository secret `BRAVE_SEARCH_API_KEY` to activate external searching. Without it the workflow exits safely.
 
-Strong new leads are opened as GitHub issues. Every lead must still be manually verified for exact model, shipping to Dubbo, lock status, fault description and live availability before purchase.
+Strong new leads are opened as GitHub issues.
+
+## Availability validation — hard gate
+
+A search result is **discovery only**. Before an item can become a `STRONG LEAD`, the hunter must open the direct marketplace listing and classify it:
+
+- `active` — page is reachable and exposes live purchase/bid controls (eBay) or a live listing structure (Gumtree)
+- `gone` — page explicitly says unavailable/out of stock/ended, or returns 404/410
+- `unverified` — page could not be confidently validated
+
+Only `active` listings may generate strong-lead alerts. `gone` and `unverified` items remain non-actionable.
+
+Availability should still be rechecked immediately before purchase because marketplace inventory can disappear between scheduled runs.
 
 ## Current benchmark lead — 1 October 2026
 
@@ -38,16 +50,42 @@ This is a **promising lead, not an automatic buy**. A vague boot issue can still
 - `deal-hunter/latest.json` — latest results after a successful run
 - `deal-hunter/seen.json` — dedupe state
 
-## Lower-risk lead — 1 October 2026
+## Invalidated lead — Dell XPS
 
-**Dell XPS — AU $40 negotiable, Fletcher NSW**
+The earlier Gumtree Dell XPS lead is **gone**. On 1 October 2026 the actual Gumtree page displayed **“This listing is no longer available.”**
 
-- seller says it **boots into BIOS**
-- explicit missing part: mSATA storage drive
-- genuine power supply included
-- shipping available; cost must be confirmed
-- exact XPS model/service tag is not stated
+It is retained conceptually as the reason the hunter now has a hard availability-validation gate.
 
-Listing: https://www.gumtree.com.au/web/listing/laptops/1344681898
+## Current validated examples — 1 October 2026
 
-This is a better *fault profile* than a vague no-boot/no-power listing because basic board/CPU/display functionality is already demonstrated by reaching BIOS. Do not estimate resale until the exact model/service tag is confirmed.
+These direct eBay pages were individually checked and were live with purchase controls at validation time:
+
+### HP ProBook 430 G5 — AU $79 delivered
+
+- i5-8250U / 8 GB / 256 GB SSD
+- seller states boot issue + worn battery
+- no charger
+- free delivery
+- direct listing: https://www.ebay.com.au/itm/227545382071
+
+Working/refurbished Australian examples currently appear around roughly AU $195–$245 depending on seller/condition. The unknown boot fault is the main risk.
+
+### HP EliteBook x360 1030 G3 — AU $99 delivered
+
+- i5-8350U / 8 GB / 256 GB SSD
+- seller states it does not reliably start
+- no charger
+- free delivery
+- direct listing: https://www.ebay.com.au/itm/227542095684
+
+Current working listings for the same family/configuration are substantially higher, including examples around the mid-$200s to high-$300s. This creates higher upside, but the intermittent boot fault is less predictable than a known missing-storage repair.
+
+### Acer Aspire 3 A314-52-59LS — AU $40 + AU $15 delivery
+
+- i5-8265U / 4 GB / 128 GB SSD
+- **boots all the way into Windows 11**
+- known faults: cracked LCD, broken hinge and broken LCD covers
+- no charger
+- direct listing: https://www.ebay.com.au/itm/278334237956
+
+This has much lower electronic-diagnosis risk, but screen/hinge/chassis parts may consume most of the margin. It is a good example of why “known fault” is not automatically “best profit.”
