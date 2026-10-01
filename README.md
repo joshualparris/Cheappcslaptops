@@ -110,6 +110,7 @@ It reports cash cost before labour, break-even including labour, projected profi
 - [Live Website Specification](docs/WEBSITE-SPEC.md)
 - [Dubbo Refurbished Laptop Market](docs/DUBBO-REFURB-MARKET.md)
 - [Dubbo Refurb & Repair — Business Concept](docs/DUBBO-REFURB-REPAIR-BUSINESS-CONCEPT.md)
+- [Repair-Flip Deal Hunter](docs/DEAL-HUNTER.md)
 - [Current Fleet Resale Valuation](docs/FLEET-RESALE-VALUATION.md)
 
 ## Site publishing
