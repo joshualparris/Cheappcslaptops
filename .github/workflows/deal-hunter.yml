@@ -23,6 +23,9 @@ jobs:
       - name: Syntax-check hunter
         run: python3 -m py_compile scripts/deal_hunter.py
 
+      - name: Run deal hunter tests
+        run: python3 -m unittest tests.test_deal_hunter
+
       - name: Run deal hunter
         env:
           BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
