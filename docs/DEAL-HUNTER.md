@@ -37,3 +37,17 @@ This is a **promising lead, not an automatic buy**. A vague boot issue can still
 - `.github/workflows/deal-hunter.yml` — six-hour schedule
 - `deal-hunter/latest.json` — latest results after a successful run
 - `deal-hunter/seen.json` — dedupe state
+
+## Lower-risk lead — 1 October 2026
+
+**Dell XPS — AU $40 negotiable, Fletcher NSW**
+
+- seller says it **boots into BIOS**
+- explicit missing part: mSATA storage drive
+- genuine power supply included
+- shipping available; cost must be confirmed
+- exact XPS model/service tag is not stated
+
+Listing: https://www.gumtree.com.au/web/listing/laptops/1344681898
+
+This is a better *fault profile* than a vague no-boot/no-power listing because basic board/CPU/display functionality is already demonstrated by reaching BIOS. Do not estimate resale until the exact model/service tag is confirmed.
