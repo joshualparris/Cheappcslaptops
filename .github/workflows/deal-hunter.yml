@@ -1,0 +1,44 @@
+name: Repair-flip deal hunter
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: repair-flip-deal-hunter
+  cancel-in-progress: true
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Run deal hunter
+        env:
+          BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
+        run: python3 scripts/deal_hunter.py --allow-no-key
+
+      - name: Open issue for new strong leads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s deal-hunter/new-alerts.md ]; then
+            gh issue create --title "Deal Hunter: new repair-flip candidate(s)" --body-file deal-hunter/new-alerts.md
+          fi
+
+      - name: Commit dedupe state when new leads exist
+        run: |
+          if [ -s deal-hunter/new-alerts.md ] && [ -f deal-hunter/seen.json ]; then
+            git config user.name "cheap-pc-deal-hunter"
+            git config user.email "actions@users.noreply.github.com"
+            git add deal-hunter/latest.json deal-hunter/seen.json
+            git commit -m "data: refresh repair-flip deal hunter" || exit 0
+            git push
+          fi
