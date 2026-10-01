@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CHEAP//PC dead-deal hunter: cheap dead or for-parts business laptops and desktops ranked by how easy the fix is and the expected Dubbo resale profit.">
+  <link rel="canonical" href="https://joshualparris.github.io/Cheappcslaptops/dead-deals.html">
+  <title>Dead-Deal Hunter — CHEAP//PC</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .dd-list{display:grid;gap:12px;padding:0;list-style:none}
+    .dd-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .dd-card h3{margin:0 0 6px;font-size:1.05rem}
+    .dd-row{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.9rem}
+    .dd-row strong{color:var(--ink)}
+    .dd-tier{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.75rem;font-weight:800;text-transform:uppercase;background:var(--soft)}
+    .dd-tier.medium{background:#fff3c4;color:var(--warn)}
+    .dd-tier.high,.dd-tier.reject{background:#fde2e0;color:var(--danger)}
+    .dd-profit{font-size:1.4rem;font-weight:900;letter-spacing:-.03em}
+    .dd-profit.neg{color:var(--danger)}
+    .dd-reasons{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:.85rem}
+    .dd-form{display:grid;gap:10px;grid-template-columns:2fr 1fr 1fr auto;align-items:end}
+    .dd-form label{display:grid;gap:4px;font-weight:700;font-size:.85rem}
+    .dd-form input{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:12px}
+    .dd-form button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:11px 18px;background:var(--lime);cursor:pointer}
+    .dd-status{color:var(--muted)}
+    @media (max-width:720px){.dd-form{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="hero calculator-hero">
+    <div class="wrap">
+      <div class="eyebrow">DUBBO REFURB BUSINESS TOOL</div>
+      <h1>Cheap dead computers with <span>easy fixes.</span></h1>
+      <p class="lede">Listings are ranked by expected profit after parts, fees, a failure reserve and your time. BIOS-locked machines and parts-only shells are rejected. No-power, liquid and board faults are marked high risk.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#check">Check a listing</a>
+        <a class="button ghost" href="./refurb-calculator.html">Full profit calculator</a>
+        <a class="button ghost" href="./">Back to bargain board</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap calculator-main">
+    <section id="check" aria-labelledby="check-title">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow dark">MARKETPLACE / GUMTREE / LOCAL</div>
+          <h2 id="check-title">Check any listing</h2>
+        </div>
+        <p>Paste the listing title and description. This uses the same scoring as the automatic hunter. Nothing you paste leaves your browser.</p>
+      </div>
+      <form id="checkForm" class="dd-form">
+        <label>Title + description<input name="title" required placeholder="Dell Latitude 7490 i5-8350U no SSD no charger"></label>
+        <label>Price (AUD)<input name="priceAud" type="number" min="0" step="0.01" required></label>
+        <label>Shipping (AUD, 0 = pickup)<input name="shippingAud" type="number" min="0" step="0.01" value="0"></label>
+        <button type="submit">Score it</button>
+      </form>
+      <ul id="checkResult" class="dd-list" aria-live="polite"></ul>
+    </section>
+
+    <section aria-labelledby="deals-title">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow dark">AUTOMATIC SEARCH</div>
+          <h2 id="deals-title">Ranked deals</h2>
+        </div>
+        <p id="ddStatus" class="dd-status">Loading…</p>
+      </div>
+      <ul id="ddList" class="dd-list"></ul>
+    </section>
+  </main>
+  <script type="module" src="./dead-deals.mjs"></script>
+</body>
+</html>

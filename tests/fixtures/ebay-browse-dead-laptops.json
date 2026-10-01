@@ -1,0 +1,9 @@
+{
+  "_note": "Synthetic eBay Browse API item_summary/search response for tests. Not real listings.",
+  "itemSummaries": [
+    { "itemId": "v1|100000000001|0", "title": "Dell Latitude 7490 i5-8350U 8GB No SSD No OS No Charger", "price": { "value": "45.00", "currency": "AUD" }, "shippingOptions": [{ "shippingCost": { "value": "12.00", "currency": "AUD" } }], "condition": "For parts or not working", "itemWebUrl": "https://example.invalid/1" },
+    { "itemId": "v1|100000000002|0", "title": "HP EliteBook 840 G5 BIOS LOCKED no ssd", "price": { "value": "30.00", "currency": "AUD" }, "shippingOptions": [{ "shippingCost": { "value": "0.00", "currency": "AUD" } }], "condition": "For parts or not working", "itemWebUrl": "https://example.invalid/2" },
+    { "itemId": "v1|100000000003|0", "title": "Lenovo ThinkPad T480 no power faulty", "price": { "value": "25.00", "currency": "AUD" }, "condition": "For parts or not working", "itemWebUrl": "https://example.invalid/3" },
+    { "itemId": "v1|100000000004|0", "title": "Toshiba Satellite i3-4005U cracked screen", "price": { "value": "20.00", "currency": "AUD" }, "shippingOptions": [{ "shippingCost": { "value": "15.00", "currency": "AUD" } }], "condition": "For parts or not working", "itemWebUrl": "https://example.invalid/4" }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "note": "Manual leads from Facebook Marketplace, Gumtree, Cash Converters, auctions or local sellers. These sources are manual-only (docs/SOURCE-STRATEGY.md). Add one object per listing; the hunter scores them with the eBay results.",
+  "leads": []
+}
