@@ -54,6 +54,58 @@ def brave_search(query: str, key: str):
     with urllib.request.urlopen(req, timeout=25) as response:
         return json.load(response).get('web', {}).get('results', [])
 
+GONE_MARKERS = (
+    'this listing is no longer available',
+    'this item is out of stock',
+    'listing has ended',
+    'this listing was ended',
+    'item is no longer available',
+    'page not found',
+    '404 not found',
+)
+
+def validate_listing(url: str):
+    """Conservatively classify a direct marketplace URL as active/gone/unverified."""
+    direct = (
+        ('ebay.com.au/itm/' in url.lower()) or
+        ('gumtree.com.au/web/listing/' in url.lower())
+    )
+    if not direct:
+        return 'unverified', 'not a direct listing URL'
+
+    req = urllib.request.Request(
+        url,
+        headers={
+            'User-Agent': 'Mozilla/5.0 CHEAP-PC-Deal-Hunter/1.1',
+            'Accept-Language': 'en-AU,en;q=0.9',
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as response:
+            status = getattr(response, 'status', 200)
+            body = response.read(900000).decode('utf-8', errors='ignore').lower()
+    except Exception as exc:
+        return 'unverified', f'listing fetch failed: {type(exc).__name__}'
+
+    if status in (404, 410):
+        return 'gone', f'HTTP {status}'
+    if any(marker in body for marker in GONE_MARKERS):
+        return 'gone', 'page explicitly says listing/item is unavailable'
+
+    if 'ebay.com.au/itm/' in url.lower():
+        active_markers = ('buy it now', 'add to cart', 'place bid', 'check out as a guest')
+        if any(marker in body for marker in active_markers):
+            return 'active', 'live eBay purchase/bid control detected'
+        return 'unverified', 'eBay page fetched but no live purchase control detected'
+
+    if 'gumtree.com.au/web/listing/' in url.lower():
+        active_markers = ('date listed', 'listed by', 'message', 'gumtree protect')
+        if sum(marker in body for marker in active_markers) >= 2:
+            return 'active', 'live Gumtree listing structure detected'
+        return 'unverified', 'Gumtree page fetched but live listing structure not confirmed'
+
+    return 'unverified', 'unsupported marketplace'
+
 def parse_price(text: str):
     prices = []
     for match in PRICE_RE.finditer(text):
@@ -162,16 +214,23 @@ def score(result, cfg):
         elif gross < 40:
             points -= 25; reasons.append('-25 estimated gross < $40')
 
+    availability, availability_note = validate_listing(url)
+
     verdict = 'REVIEW'
-    if points < 30:
+    if availability == 'gone':
+        verdict = 'GONE'
+    elif points < 30:
         verdict = 'PASS'
+    elif availability != 'active':
+        verdict = 'UNVERIFIED'
     elif points >= cfg['minimumScore'] and (gross is None or gross >= cfg['minimumEstimatedGrossAud']):
         verdict = 'STRONG LEAD'
 
     return {
         'id': hashlib.sha256(url.encode('utf-8')).hexdigest()[:16],
         'title': title, 'url': url, 'description': description,
-        'score': points, 'verdict': verdict, 'priceAudParsed': price,
+        'score': points, 'verdict': verdict, 'availability': availability,
+        'availabilityNote': availability_note, 'priceAudParsed': price,
         'intelGeneration': gen, 'estimatedFixPartsAud': parts,
         'estimatedResaleAud': resale, 'estimatedGrossAud': gross,
         'reasons': reasons
@@ -221,12 +280,13 @@ def main():
         lines = [
             '# New repair-flip leads', '',
             f'Generated {now}', '',
-            'Automated screening only. Verify the live listing, exact model, shipping to Dubbo, lock status and fault before buying.', ''
+            'The actual listing page was validated ACTIVE during this run. Still verify exact model, shipping to Dubbo, lock status and fault immediately before buying.', ''
         ]
         for item in new_strong[:10]:
             lines.extend([
                 f"## {item['title']}",
                 f"- Score: **{item['score']}**",
+                f"- Availability: **{item['availability']}** — {item['availabilityNote']}",
                 f"- Parsed price: {item['priceAudParsed']}",
                 f"- Estimated parts: AUD {item['estimatedFixPartsAud']}",
                 f"- Estimated resale: {item['estimatedResaleAud']}",
