@@ -29,7 +29,10 @@
     "keyboard issue": 12,
     "missing key": 8,
     "boot issue": 5,
-    "cosmetic": 10
+    "cosmetic": 10,
+    "boots to windows": 40,
+    "boots to os": 35,
+    "image on lcd": 12
   },
   "negativeSignals": {
     "liquid damage": -80,
@@ -49,6 +52,13 @@
     "charging circuit": -45,
     "gpu fault": -60,
     "screen broken": -25,
-    "cracked screen": -25
+    "cracked screen": -25,
+    "broken hinge": -50,
+    "hinge is broken": -50,
+    "screen damage": -40,
+    "lcd is cracked": -35,
+    "cracked lcd": -35,
+    "does not reliably start": -35,
+    "fails to start": -45
   }
 }
