@@ -64,6 +64,11 @@ GONE_MARKERS = (
     '404 not found',
 )
 
+def classify_listing_html(url: str, status: int, body: str):
+    """Classify already-fetched listing HTML. Gone markers always win."""
+    body = body.lower()
+    return classify_listing_html(url, status, body)
+
 def validate_listing(url: str):
     """Conservatively classify a direct marketplace URL as active/gone/unverified."""
     direct = (
