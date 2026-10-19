@@ -65,9 +65,27 @@ GONE_MARKERS = (
 )
 
 def classify_listing_html(url: str, status: int, body: str):
-    """Classify already-fetched listing HTML. Gone markers always win."""
+    """Classify fetched listing HTML conservatively. Gone markers always win."""
     body = body.lower()
-    return classify_listing_html(url, status, body)
+    if status in (404, 410):
+        return 'gone', f'HTTP {status}'
+    if any(marker in body for marker in GONE_MARKERS):
+        return 'gone', 'page explicitly says listing/item is unavailable'
+
+    url_lower = url.lower()
+    if 'ebay.com.au/itm/' in url_lower:
+        active_markers = ('buy it now', 'add to cart', 'place bid', 'check out as a guest')
+        if any(marker in body for marker in active_markers):
+            return 'active', 'live eBay purchase/bid control detected'
+        return 'unverified', 'eBay page fetched but no live purchase control detected'
+
+    if 'gumtree.com.au/web/listing/' in url_lower:
+        active_markers = ('date listed', 'listed by', 'message', 'gumtree protect')
+        if sum(marker in body for marker in active_markers) >= 2:
+            return 'active', 'live Gumtree listing structure detected'
+        return 'unverified', 'Gumtree page fetched but live listing structure not confirmed'
+
+    return 'unverified', 'unsupported marketplace'
 
 def validate_listing(url: str):
     """Conservatively classify a direct marketplace URL as active/gone/unverified."""
@@ -92,24 +110,7 @@ def validate_listing(url: str):
     except Exception as exc:
         return 'unverified', f'listing fetch failed: {type(exc).__name__}'
 
-    if status in (404, 410):
-        return 'gone', f'HTTP {status}'
-    if any(marker in body for marker in GONE_MARKERS):
-        return 'gone', 'page explicitly says listing/item is unavailable'
-
-    if 'ebay.com.au/itm/' in url.lower():
-        active_markers = ('buy it now', 'add to cart', 'place bid', 'check out as a guest')
-        if any(marker in body for marker in active_markers):
-            return 'active', 'live eBay purchase/bid control detected'
-        return 'unverified', 'eBay page fetched but no live purchase control detected'
-
-    if 'gumtree.com.au/web/listing/' in url.lower():
-        active_markers = ('date listed', 'listed by', 'message', 'gumtree protect')
-        if sum(marker in body for marker in active_markers) >= 2:
-            return 'active', 'live Gumtree listing structure detected'
-        return 'unverified', 'Gumtree page fetched but live listing structure not confirmed'
-
-    return 'unverified', 'unsupported marketplace'
+    return classify_listing_html(url, status, body)
 
 def parse_price(text: str):
     prices = []
