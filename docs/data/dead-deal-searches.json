@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "marketplace": "EBAY_AU",
+  "destinationPostcode": "2830",
+  "maxPriceAud": 120,
+  "notifyMinExpectedProfitAud": 40,
+  "searches": [
+    { "q": "latitude", "categoryIds": "177", "conditionIds": "7000" },
+    { "q": "elitebook", "categoryIds": "177", "conditionIds": "7000" },
+    { "q": "probook", "categoryIds": "177", "conditionIds": "7000" },
+    { "q": "thinkpad", "categoryIds": "177", "conditionIds": "7000" },
+    { "q": "laptop no ssd", "categoryIds": "177", "conditionIds": "3000|7000" },
+    { "q": "laptop no hdd no os", "categoryIds": "177", "conditionIds": "3000|7000" },
+    { "q": "laptop no charger i5", "categoryIds": "177", "conditionIds": "3000|7000" },
+    { "q": "optiplex no hdd", "categoryIds": "179", "conditionIds": "3000|7000" },
+    { "q": "elitedesk no hdd", "categoryIds": "179", "conditionIds": "3000|7000" },
+    { "q": "thinkcentre no hdd", "categoryIds": "179", "conditionIds": "3000|7000" }
+  ]
+}

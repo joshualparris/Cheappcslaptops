@@ -82,6 +82,25 @@ The website includes a client-side calculator for:
 
 It reports cash cost before labour, break-even including labour, projected profit after allowances, and effective return per labour hour. The calculator is a planning tool only; it does not guarantee an achieved price or determine tax/legal obligations.
 
+## Dead-deal hunter
+
+[docs/dead-deals.html](docs/dead-deals.html) ranks cheap dead, untested or incomplete computers by expected profit after parts, fees, a failure reserve, the NSW licence allocation and labour.
+
+- **Easy fixes rank first:** no SSD/HDD, no RAM, no charger, no OS, worn battery, overheating.
+- **Medium:** screen, hinge, keyboard, DC jack, untested.
+- **High risk:** no power, no POST, liquid damage, motherboard faults, and "for parts" listings that don't say what is wrong.
+- **Rejected:** BIOS/Computrace/MDM-locked machines and parts-only shells.
+- **Recommended** means 8th-gen Intel (or comparable Ryzen) or newer, at least $80 gross room, and an easy or medium fix.
+
+`scripts/hunt_dead_deals.mjs` runs every 4 hours through `.github/workflows/hunt-dead-deals.yml`. It searches eBay Australia through the official Browse API, scores manual leads from `docs/data/dead-deal-leads.json`, and writes `docs/data/dead-deals.json`. Search terms and the price cap live in `docs/data/dead-deal-searches.json`; the scoring rules live in `docs/dead-deal-core.mjs`.
+
+Repository secrets:
+
+- `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET`: eBay developer production keyset. Without these, only manual leads are scored.
+- `NTFY_TOPIC` (optional): a private [ntfy](https://ntfy.sh) topic for phone alerts when a deal beats `notifyMinExpectedProfitAud`.
+
+Facebook Marketplace and Gumtree stay manual (see the source strategy). Paste those listings into the page's "Check any listing" box, or add them to the leads file.
+
 ## Core rules
 
 - Hard budgets are **all-in**: item + postage + mandatory fees + essential missing parts.

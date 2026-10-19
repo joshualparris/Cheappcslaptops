@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "destinationPostcode": "2830",
+  "sources": [
+    { "source": "eBay Australia", "mode": "disabled", "ok": false, "error": "EBAY_CLIENT_ID / EBAY_CLIENT_SECRET not configured" },
+    { "source": "Manual leads", "mode": "manual", "ok": true, "count": 0 }
+  ],
+  "disclaimer": "Resale, parts and labour figures are planning estimates from the Dubbo refurb concept, not quotes. Confirm CPU, BIOS lock status, included parts and shipping with the seller before buying.",
+  "deals": []
+}

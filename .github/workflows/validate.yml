@@ -11,6 +11,10 @@ on:
       - "docs/refurb-calculator.html"
       - "docs/refurb-calculator.mjs"
       - "docs/refurb-profit-core.mjs"
+      - "docs/dead-deal-core.mjs"
+      - "docs/dead-deals.mjs"
+      - "docs/dead-deals.html"
+      - "scripts/hunt_dead_deals.mjs"
       - "scripts/validate_data.py"
       - "scripts/validate_fleet.py"
       - "scripts/smoke_site.py"
@@ -25,6 +29,10 @@ on:
       - "docs/refurb-calculator.html"
       - "docs/refurb-calculator.mjs"
       - "docs/refurb-profit-core.mjs"
+      - "docs/dead-deal-core.mjs"
+      - "docs/dead-deals.mjs"
+      - "docs/dead-deals.html"
+      - "scripts/hunt_dead_deals.mjs"
       - "scripts/validate_data.py"
       - "scripts/validate_fleet.py"
       - "scripts/smoke_site.py"
@@ -48,6 +56,9 @@ jobs:
       - name: Test refurb profit calculations
         run: node tests/test_refurb_profit.mjs
 
+      - name: Test dead-deal scoring and hunter
+        run: node tests/test_dead_deal_core.mjs
+
       - name: Validate current listings
         run: python3 scripts/validate_data.py
 
@@ -58,4 +69,4 @@ jobs:
         run: python3 scripts/smoke_site.py
 
       - name: Syntax-check browser JavaScript
-        run: node --check docs/app.js
+        run: node --check docs/app.js && node --check docs/dead-deals.mjs

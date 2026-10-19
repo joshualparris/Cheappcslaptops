@@ -9,6 +9,10 @@ on:
       - "scripts/validate_fleet.py"
       - "scripts/smoke_site.py"
       - ".github/workflows/pages.yml"
+  workflow_run:
+    # Results committed by the hunter's GITHUB_TOKEN do not trigger push events.
+    workflows: ["Hunt dead deals"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
