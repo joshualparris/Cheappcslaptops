@@ -1,0 +1,33 @@
+name: Deal hunter regression tests
+
+on:
+  push:
+    paths:
+      - 'scripts/deal_hunter.py'
+      - 'tests/test_deal_hunter.py'
+      - '.github/workflows/deal-hunter-ci.yml'
+  pull_request:
+    paths:
+      - 'scripts/deal_hunter.py'
+      - 'tests/test_deal_hunter.py'
+      - '.github/workflows/deal-hunter-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Verify Python syntax
+        run: python3 -m py_compile scripts/deal_hunter.py tests/test_deal_hunter.py
+
+      - name: Run offline listing-classification tests
+        run: python3 -m unittest -v tests.test_deal_hunter
