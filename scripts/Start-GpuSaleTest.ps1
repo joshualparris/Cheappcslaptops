@@ -49,7 +49,7 @@ if ($CardId -cnotmatch '^GPU-[0-9]{3,5}$') {
 
 Write-Host ''
 Write-Host 'Detected Windows display adapters:' -ForegroundColor Cyan
-$gpus = @(Get-CimInstance -ClassName Win32_VideoController | Where-Object { $_.PNPDeviceID -like 'PCI\\VEN_*' })
+$gpus = @(Get-CimInstance -ClassName Win32_VideoController | Where-Object { $_.PNPDeviceID -like 'PCI\VEN_*' })
 if ($gpus.Count -eq 0) {
     throw 'No PCI display adapter detected. Inspect Device Manager and install a suitable driver.'
 }
