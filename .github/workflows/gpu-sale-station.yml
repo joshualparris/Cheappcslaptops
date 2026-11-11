@@ -1,0 +1,50 @@
+name: GPU resale test station checks
+
+on:
+  pull_request:
+    paths:
+      - README.md
+      - docs/GPU-SALE-TEST-STATION.md
+      - scripts/Start-GpuSaleTest.ps1
+      - .github/workflows/gpu-sale-station.yml
+  push:
+    branches: [main]
+    paths:
+      - README.md
+      - docs/GPU-SALE-TEST-STATION.md
+      - scripts/Start-GpuSaleTest.ps1
+      - .github/workflows/gpu-sale-station.yml
+
+jobs:
+  syntax-and-safety:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Parse Windows PowerShell test recorder
+        shell: powershell
+        run: |
+          $path = Join-Path (Get-Location) 'scripts\Start-GpuSaleTest.ps1'
+          $tokens = $null
+          $parseErrors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count -gt 0) {
+            $parseErrors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+          Write-Host 'PowerShell syntax passed.'
+      - name: Verify checklist, safe logging and no automatic passes
+        shell: powershell
+        run: |
+          $script = Get-Content 'scripts\Start-GpuSaleTest.ps1' -Raw
+          $guide = Get-Content 'docs\GPU-SALE-TEST-STATION.md' -Raw
+          $readme = Get-Content 'README.md' -Raw
+          $required = @('FAULT_REPORTED', 'INCOMPLETE', 'REVIEW_DEVICE_OR_DRIVER', 'PASSED_QUICK_SCREEN', 'Protect-CsvText', 'Export-Csv', 'Get-CimInstance')
+          foreach ($item in $required) {
+            if (-not $script.Contains($item)) { throw "Missing recorder safety gate: $item" }
+          }
+          if ($script -match 'Invoke-WebRequest|Start-Job|Set-ExecutionPolicy|Start-Process') { throw 'Recorder must remain local/read-only.' }
+          if (-not $guide.Contains('SATA-powered mining risers')) { throw 'Missing riser warning.' }
+          if (-not $guide.Contains('OCCT Personal is prohibited')) { throw 'Missing commercial-license warning.' }
+          if (-not $readme.Contains('docs/GPU-SALE-TEST-STATION.md')) { throw 'Missing README link.' }
+          Write-Host 'Guide and recorder static checks passed.'

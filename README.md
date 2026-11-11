@@ -10,6 +10,10 @@ The long-term goal is a website that continuously discovers current listings, no
 **Roadmap:** [ROADMAP.md](ROADMAP.md)  
 **Source/data policy:** [docs/SOURCE-STRATEGY.md](docs/SOURCE-STRATEGY.md)
 
+## GPU resale test bench (Windows)
+
+For repeatable second-hand GPU testing, see **[Build a one-GPU Windows test PC and certify sale stock](docs/GPU-SALE-TEST-STATION.md)**. The guide covers safe PSU wiring, Windows setup, free/open-source tools suitable for commercial workflows, optional licensed professional diagnostics, step-by-step pass/fail checks and a local-only PowerShell results recorder at [`scripts/Start-GpuSaleTest.ps1`](scripts/Start-GpuSaleTest.ps1). **No photographed GPUs have been tested or certified by this repository.**
+
 ## Current bargain board
 
 The working static site is in [docs/index.html](docs/index.html), with canonical researched listing data in [docs/data/listings.json](docs/data/listings.json) and rendering logic in [docs/app.js](docs/app.js).
